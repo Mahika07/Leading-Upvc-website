@@ -1,0 +1,638 @@
+/* =========================================================
+   LEGACY SECTION
+========================================================= */
+
+.legacy {
+    position: relative;
+
+    padding: 100px 6vw 130px;
+
+    background: #ffffff;
+
+    color: #111820;
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.legacy-header {
+    max-width: 1400px;
+
+    margin: 0 auto 120px;
+
+    display: grid;
+
+    grid-template-columns: 1.5fr 0.8fr;
+
+    gap: 100px;
+
+    align-items: end;
+}
+
+
+/* =========================================================
+   EYEBROW
+========================================================= */
+
+.legacy-eyebrow {
+    display: block;
+
+    margin-bottom: 25px;
+
+    color: #0066b3;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.2em;
+}
+
+
+/* =========================================================
+   HEADING
+========================================================= */
+
+.legacy-heading h3 {
+    margin: 0;
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: clamp(52px,
+            6.5vw,
+            80px);
+
+    line-height: 0.92;
+
+    font-weight: 700;
+
+    letter-spacing: -0.065em;
+}
+
+
+.legacy-heading h3 em {
+    font-family: Georgia, serif;
+
+    font-weight: 400;
+
+    font-style: italic;
+    position: relative;
+    top: 20px;
+    color: #0066b3;
+}
+
+
+/* =========================================================
+   INTRO
+========================================================= */
+
+.legacy-intro {
+    max-width: 390px;
+
+    padding-bottom: 5px;
+}
+
+
+.legacy-intro p {
+    margin: 0;
+
+    color: #69737c;
+
+    font-size: 15px;
+
+    line-height: 1.8;
+}
+
+
+.legacy-label {
+    display: block;
+
+    margin-top: 30px;
+
+    color: black;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.18em;
+}
+
+
+/* =========================================================
+   TIMELINE
+========================================================= */
+
+.legacy-timeline {
+    position: relative;
+
+    max-width: 1400px;
+
+    margin: 0 auto;
+}
+
+
+/* =========================================================
+   TIMELINE LINE
+========================================================= */
+
+.legacy-line {
+    position: absolute;
+
+    top: 9px;
+
+    left: 0;
+
+    width: 100%;
+
+    height: 1px;
+
+    background: #dfe4e8;
+
+    overflow: hidden;
+}
+
+
+.legacy-line-progress {
+    width: 100%;
+
+    height: 100%;
+
+    background: #0066b3;
+
+    transform-origin: left center;
+}
+
+
+/* =========================================================
+   ITEMS
+========================================================= */
+
+.legacy-items {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 30px;
+}
+
+
+.legacy-item {
+    position: relative;
+
+    padding-top: 42px;
+}
+
+
+/* =========================================================
+   DOT
+========================================================= */
+
+.legacy-dot {
+    position: absolute;
+
+    top: 0;
+
+    left: 0;
+
+    width: 19px;
+    height: 19px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #ffffff;
+
+    border: 1px solid #0066b3;
+}
+
+
+.legacy-dot span {
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: #0066b3;
+}
+
+
+/* =========================================================
+   YEAR
+========================================================= */
+
+.legacy-year {
+    display: block;
+
+    margin-bottom: 18px;
+
+    color: #0066b3;
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 38px;
+
+    font-weight: 700;
+
+    letter-spacing: -0.04em;
+}
+
+
+/* =========================================================
+   CONTENT
+========================================================= */
+
+.legacy-item-content {
+    max-width: 270px;
+}
+
+
+.legacy-item-content h3 {
+    margin: 0 0 12px;
+
+    color: #1a2025;
+
+    font-family: Georgia, serif;
+
+    font-size: 25px;
+
+    font-weight: 400;
+}
+
+
+.legacy-item-content p {
+    margin: 0;
+
+    color: #737c84;
+
+    font-size: 12px;
+
+    line-height: 1.75;
+}
+
+
+/* =========================================================
+   BOTTOM
+========================================================= */
+
+.legacy-bottom {
+    max-width: 1400px;
+
+    margin: 100px auto 0;
+
+    padding-top: 35px;
+
+    border-top: 1px solid #dfe4e8;
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 2fr 1fr;
+
+    align-items: center;
+}
+
+
+/* =========================================================
+   STAT
+========================================================= */
+
+.legacy-stat {
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+}
+
+
+.legacy-stat strong {
+    color: #0066b3;
+
+    font-size: 50px;
+
+    font-weight: 700;
+
+    letter-spacing: -0.06em;
+}
+
+
+.legacy-stat span {
+    color: #7b848c;
+
+    font-size: 8px;
+
+    font-weight: 700;
+
+    line-height: 1.5;
+
+    letter-spacing: 0.16em;
+}
+
+
+/* =========================================================
+   BOTTOM TEXT
+========================================================= */
+
+.legacy-bottom-text {
+    text-align: center;
+}
+
+
+.legacy-bottom-text p {
+    margin: 0;
+
+    color: #303840;
+
+    font-family: Georgia, serif;
+
+    font-size: 22px;
+
+    font-style: italic;
+
+    line-height: 1.25;
+}
+
+
+/* =========================================================
+   LINK
+========================================================= */
+
+.legacy-link {
+    justify-self: end;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 13px 18px;
+
+    border: 1px solid #0066b3;
+
+    border-radius: 999px;
+
+    color: #0066b3;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    text-decoration: none;
+
+    transition:
+        background 0.3s ease,
+        color 0.3s ease,
+        transform 0.3s ease;
+}
+
+
+.legacy-link:hover {
+    background: #0066b3;
+
+    color: #ffffff;
+
+    transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .legacy {
+        padding:
+            110px 5vw 100px;
+    }
+
+
+    .legacy-header {
+        grid-template-columns: 1fr;
+
+        gap: 40px;
+
+        margin-bottom: 90px;
+    }
+
+
+    .legacy-intro {
+        max-width: 550px;
+    }
+
+
+    .legacy-items {
+        grid-template-columns:
+            repeat(2, 1fr);
+
+        gap: 70px 40px;
+    }
+
+
+    .legacy-line {
+        display: none;
+    }
+
+
+    .legacy-bottom {
+        margin-top: 90px;
+
+        grid-template-columns:
+            1fr 1fr;
+    }
+
+
+    .legacy-bottom-text {
+        text-align: right;
+    }
+
+
+    .legacy-link {
+        grid-column: 1 / -1;
+
+        justify-self: start;
+
+        margin-top: 30px;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 650px) {
+
+    .legacy {
+        padding:
+            90px 20px 80px;
+    }
+
+
+    .legacy-header {
+        gap: 30px;
+
+        margin-bottom: 70px;
+    }
+
+
+    .legacy-eyebrow {
+        margin-bottom: 18px;
+
+        font-size: 8px;
+    }
+
+
+    .legacy-heading h3 {
+        font-size:
+            clamp(45px,
+                13vw,
+                65px);
+    }
+
+
+    .legacy-intro p {
+        font-size: 14px;
+
+        line-height: 1.7;
+    }
+
+
+    .legacy-label {
+        margin-top: 22px;
+
+        font-size: 8px;
+    }
+
+
+    /* -----------------------------------------
+     MOBILE TIMELINE
+  ----------------------------------------- */
+
+    .legacy-items {
+        position: relative;
+
+        grid-template-columns: 1fr;
+
+        gap: 0;
+
+        padding-left: 28px;
+    }
+
+
+    .legacy-items::before {
+        content: "";
+
+        position: absolute;
+
+        top: 0;
+        bottom: 0;
+
+        left: 7px;
+
+        width: 1px;
+
+        background: #dfe4e8;
+    }
+
+
+    .legacy-item {
+        padding-top: 0;
+
+        padding-bottom: 55px;
+    }
+
+
+    .legacy-item:last-child {
+        padding-bottom: 0;
+    }
+
+
+    .legacy-dot {
+        top: 3px;
+
+        left: -28px;
+
+        width: 16px;
+        height: 16px;
+    }
+
+
+    .legacy-dot span {
+        width: 6px;
+        height: 6px;
+    }
+
+
+    .legacy-year {
+        margin-bottom: 12px;
+
+        font-size: 34px;
+    }
+
+
+    .legacy-item-content {
+        max-width: 100%;
+    }
+
+
+    .legacy-item-content h3 {
+        font-size: 23px;
+    }
+
+
+    .legacy-item-content p {
+        font-size: 12px;
+
+        line-height: 1.7;
+    }
+
+
+    /* -----------------------------------------
+     BOTTOM
+  ----------------------------------------- */
+
+    .legacy-bottom {
+        margin-top: 80px;
+
+        padding-top: 25px;
+
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 25px;
+    }
+
+
+    .legacy-bottom-text {
+        text-align: left;
+    }
+
+
+    .legacy-bottom-text p {
+        font-size: 20px;
+    }
+
+
+    .legacy-link {
+        justify-self: auto;
+
+        margin-top: 0;
+    }
+
+}

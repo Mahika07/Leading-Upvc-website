@@ -1,0 +1,729 @@
+/* =========================================================
+   SECTION 8 — O.B.E.N. PREMIUM HARDWARE
+   Same language as Openings / Systems / Legacy: white ground,
+   square corners, 1px hairlines, Manrope + Georgia italic,
+   GEALAN blue. Everything is scoped to .hw.
+========================================================= */
+
+.hw {
+    --hw-blue: #0066b3;
+    --hw-blue-dark: #004b87;
+    --hw-blue-light: #eaf4fb;
+    --hw-ink: #111820;
+    --hw-grey: #737c84;
+    --hw-line: #dfe4e8;
+    --hw-surface: #f7f8f9;
+
+    position: relative;
+    width: 100%;
+    padding: 100px 40px 90px;
+    overflow: hidden;
+
+    background: #ffffff;
+    color: var(--hw-ink);
+}
+
+.hw-inner {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+/* ---------------- breadcrumb ---------------- */
+
+.hw-crumb {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 44px;
+
+    color: var(--hw-blue);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+}
+
+.hw-crumb i {
+    width: 1px;
+    height: 11px;
+    background: var(--hw-line);
+}
+
+.hw-crumb b {
+    width: 25px;
+    height: 1px;
+    background: var(--hw-blue);
+}
+
+/* =========================================================
+   TOP ROW
+   Intro, stage and panel share one row height: the stage
+   stretches to match the taller side panel.
+========================================================= */
+
+.hw-top {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr) minmax(0, 0.9fr);
+    column-gap: 48px;
+    align-items: stretch;
+}
+
+/* ---------------- intro ---------------- */
+
+.hw-intro {
+    align-self: center;
+}
+
+.hw-brand {
+    margin-bottom: 20px;
+
+    color: var(--hw-blue);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.3em;
+}
+
+.hw-title {
+    font-family: "Manrope", sans-serif;
+    font-size: clamp(44px, 5vw, 72px);
+    font-weight: 700;
+    line-height: 0.95;
+    letter-spacing: -0.065em;
+    color: var(--hw-ink);
+}
+
+.hw-title em {
+    color: var(--hw-blue);
+    font-family: Georgia, serif;
+    font-weight: 400;
+    font-style: italic;
+    letter-spacing: -0.03em;
+}
+
+.hw-intro p {
+    max-width: 38ch;
+    margin: 26px 0 32px;
+
+    color: var(--hw-grey);
+    font-size: 13.5px;
+    line-height: 1.75;
+}
+
+.hw-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 15px 24px;
+
+    border: 1px solid var(--hw-blue);
+    background: var(--hw-blue);
+    color: #fff;
+
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+
+    transition:
+        background 0.25s ease,
+        border-color 0.25s ease,
+        transform 0.25s ease;
+}
+
+.hw-cta:hover {
+    background: var(--hw-blue-dark);
+    border-color: var(--hw-blue-dark);
+    transform: translateY(-2px);
+}
+
+/* =========================================================
+   STAGE
+   A hairline frame that stretches to the row height. The
+   window image sits inside it at a fixed 4:5 ratio, sized by
+   height, so it stays small and the hotspot % stay accurate.
+========================================================= */
+
+.hw-stage-wrap {
+    align-self: stretch;
+    width: 100%;
+    min-height: 440px;
+    border: 1px solid var(--hw-line);
+}
+
+.hw-enter,
+.hw-drift {
+    height: 100%;
+    will-change: transform, opacity;
+}
+
+.hw-stage {
+    position: relative;
+    height: 100%;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+
+    border: 1px solid var(--hw-line);
+    background: radial-gradient(circle at 50% 42%, #ffffff 0%, var(--hw-surface) 70%);
+}
+
+
+/* soft floor shadow under the window */
+.hw-floor {
+    position: absolute;
+    left: 22%;
+    right: 22%;
+    bottom: 6%;
+    height: 5%;
+    background: radial-gradient(closest-side, rgba(17, 24, 32, 0.2), transparent);
+    filter: blur(8px);
+}
+
+.hw-zoom {
+    position: relative;
+    height: 88%;
+    aspect-ratio: 4 / 5;
+    /* keep in sync with window.png */
+    max-width: 100%;
+    transform-origin: 50% 50%;
+    will-change: transform;
+}
+
+.hw-window {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    object-fit: fill;
+    user-select: none;
+    pointer-events: none;
+}
+
+/* ---------------- hotspots ---------------- */
+
+.hw-anchor {
+    position: absolute;
+    width: 0;
+    height: 0;
+}
+
+.hw-hot {
+    position: absolute;
+    left: -14px;
+    top: -14px;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+
+    display: grid;
+    place-items: center;
+
+    border: 1px solid var(--hw-line);
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 6px 16px rgba(17, 24, 32, 0.18);
+}
+
+.hw-hot::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--hw-blue);
+    transition: background 0.25s ease;
+}
+
+.hw-hot::after {
+    content: "";
+    position: absolute;
+    inset: -7px;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 102, 179, 0.5);
+    animation: hwPulse 2.4s ease-out infinite;
+    pointer-events: none;
+}
+
+.hw-hot.is-active {
+    background: var(--hw-blue);
+    border-color: var(--hw-blue);
+}
+
+.hw-hot.is-active::before {
+    background: #fff;
+}
+
+.hw-hot-label {
+    position: absolute;
+    top: 50%;
+    left: calc(100% + 10px);
+    transform: translateY(-50%);
+    padding: 6px 12px;
+
+    border: 1px solid var(--hw-line);
+    background: rgba(255, 255, 255, 0.95);
+
+    color: var(--hw-ink);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.hw-hot[data-side="left"] .hw-hot-label {
+    left: auto;
+    right: calc(100% + 10px);
+}
+
+@keyframes hwPulse {
+    0% {
+        transform: scale(0.75);
+        opacity: 0.9;
+    }
+
+    100% {
+        transform: scale(1.5);
+        opacity: 0;
+    }
+}
+
+/* ---------------- zoom caption ---------------- */
+
+.hw-caption {
+    position: absolute;
+    left: 14px;
+    bottom: 14px;
+    z-index: 3;
+
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding: 12px 16px;
+
+    border: 1px solid var(--hw-line);
+    border-left: 2px solid var(--hw-blue);
+    background: #fff;
+}
+
+.hw-caption-tag {
+    color: var(--hw-blue);
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+}
+
+.hw-caption strong {
+    font-family: "Manrope", sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+.hw-caption small {
+    color: var(--hw-grey);
+    font-size: 11px;
+}
+
+.hw-reset {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 3;
+
+    width: 34px;
+    height: 34px;
+    display: grid;
+    place-items: center;
+
+    border: 1px solid var(--hw-line);
+    background: #fff;
+    color: var(--hw-blue);
+
+    transition:
+        border-color 0.25s ease,
+        background 0.25s ease;
+}
+
+.hw-reset:hover {
+    border-color: var(--hw-blue);
+    background: var(--hw-blue-light);
+}
+
+/* =========================================================
+   DETAIL PANEL
+========================================================= */
+
+.hw-panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 30px;
+    border: 1px solid var(--hw-line);
+    height: 100%;
+}
+
+.hw-panel-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    color: var(--hw-grey);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+}
+
+.hw-no {
+    color: var(--hw-blue);
+}
+
+.hw-rule {
+    flex: 1;
+    height: 1px;
+    background: var(--hw-line);
+}
+
+.hw-arrows {
+    display: flex;
+    gap: 6px;
+    margin-left: 4px;
+}
+
+.hw-arrows button {
+    width: 32px;
+    height: 32px;
+    display: grid;
+    place-items: center;
+
+    border: 1px solid var(--hw-line);
+    background: #fff;
+    color: var(--hw-ink);
+
+    transition:
+        border-color 0.25s ease,
+        background 0.25s ease,
+        color 0.25s ease;
+}
+
+.hw-arrows button:hover {
+    border-color: var(--hw-blue);
+    background: var(--hw-blue-light);
+    color: var(--hw-blue);
+}
+
+.hw-panel-body {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.hw-panel-media {
+    position: relative;
+    height: 150px;
+
+    border: 1px solid var(--hw-line);
+    background: var(--hw-surface);
+}
+
+.hw-part-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    padding: 10px;
+    object-fit: contain;
+    user-select: none;
+    pointer-events: none;
+    filter: drop-shadow(0 12px 12px rgba(17, 24, 32, 0.18));
+}
+
+.hw-panel-copy h3 {
+    font-family: "Manrope", sans-serif;
+    font-size: clamp(26px, 2.4vw, 34px);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.05em;
+}
+
+.hw-panel-copy h3 em {
+    color: var(--hw-blue);
+    font-family: Georgia, serif;
+    font-weight: 400;
+    font-style: italic;
+    letter-spacing: -0.03em;
+}
+
+.hw-panel-copy h3::after {
+    content: "";
+    display: block;
+    width: 36px;
+    height: 2px;
+    margin: 16px 0;
+    background: var(--hw-blue);
+}
+
+.hw-panel-copy p {
+    min-height: 5.2em;
+    /* keeps the finish row from jumping between parts */
+    color: var(--hw-grey);
+    font-size: 13px;
+    line-height: 1.75;
+}
+
+/* ---------------- finish selector ---------------- */
+
+.hw-finish {
+    margin-top: 18px;
+    padding-top: 16px;
+    border-top: 1px solid var(--hw-line);
+}
+
+.hw-finish-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 14px;
+
+    color: var(--hw-grey);
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.2em;
+}
+
+.hw-finish-head strong {
+    color: var(--hw-ink);
+    font-size: 11px;
+    letter-spacing: 0.04em;
+}
+
+.hw-finish-list {
+    display: flex;
+    justify-content: space-between;
+    gap: 6px;
+}
+
+.hw-swatch {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 0;
+
+    border: 0;
+    background: none;
+
+    color: var(--hw-grey);
+    font-size: 9px;
+}
+
+.hw-swatch i {
+    position: relative;
+    width: 26px;
+    height: 26px;
+
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 28%,
+            color-mix(in srgb, var(--sw) 70%, #fff) 0%,
+            var(--sw) 55%,
+            color-mix(in srgb, var(--sw) 80%, #000) 100%);
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.14);
+
+    transition: transform 0.25s ease;
+}
+
+.hw-swatch:hover i {
+    transform: scale(1.1);
+}
+
+.hw-swatch.is-active i::after {
+    content: "";
+    position: absolute;
+    inset: -5px;
+    border-radius: 50%;
+    border: 1.5px solid var(--hw-blue);
+}
+
+.hw-swatch.is-active {
+    color: var(--hw-ink);
+    font-weight: 700;
+}
+
+/* colour approximation when only the bronze close-ups exist */
+.hw-part-img.tint-white {
+    filter: grayscale(1) brightness(1.85) contrast(0.85) drop-shadow(0 12px 12px rgba(17, 24, 32, 0.18));
+}
+
+.hw-part-img.tint-black {
+    filter: grayscale(1) brightness(0.4) contrast(1.2) drop-shadow(0 12px 12px rgba(17, 24, 32, 0.18));
+}
+
+.hw-part-img.tint-anthracite {
+    filter: grayscale(1) brightness(0.72) contrast(1.05) drop-shadow(0 12px 12px rgba(17, 24, 32, 0.18));
+}
+
+.hw-part-img.tint-silver {
+    filter: grayscale(1) brightness(1.4) contrast(0.95) drop-shadow(0 12px 12px rgba(17, 24, 32, 0.18));
+}
+
+/* =========================================================
+   HARDWARE CARDS
+========================================================= */
+
+.hw-cards {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+    margin-top: 56px;
+}
+
+.hw-card {
+    position: relative;
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    min-height: 150px;
+    padding: 22px 0 22px 24px;
+    overflow: hidden;
+
+    border: 1px solid var(--hw-line);
+    background: #ffffff;
+    color: var(--hw-ink);
+    text-align: left;
+
+    transition:
+        transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+        box-shadow 0.4s ease,
+        border-color 0.25s ease;
+}
+
+.hw-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 38px rgba(20, 35, 45, 0.09);
+}
+
+.hw-card.is-active {
+    border-color: var(--hw-blue);
+    box-shadow: 0 0 0 1px var(--hw-blue);
+}
+
+.hw-card-copy {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 0;
+}
+
+.hw-card-no {
+    color: var(--hw-blue);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+}
+
+.hw-card h4 {
+    margin-top: 14px;
+    font-family: "Manrope", sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+}
+
+.hw-card p {
+    max-width: 150px;
+    margin-top: 6px;
+    color: var(--hw-grey);
+    font-size: 12px;
+    line-height: 1.55;
+}
+
+.hw-card-arrow {
+    width: 28px;
+    height: 28px;
+    margin-top: auto;
+    display: grid;
+    place-items: center;
+
+    border: 1px solid var(--hw-line);
+    color: var(--hw-ink);
+
+    transition:
+        background 0.25s ease,
+        border-color 0.25s ease,
+        color 0.25s ease;
+}
+
+.hw-card:hover .hw-card-arrow,
+.hw-card.is-active .hw-card-arrow {
+    border-color: var(--hw-blue);
+    background: var(--hw-blue);
+    color: #fff;
+}
+
+.hw-card-media {
+    position: relative;
+    flex: 0 0 44%;
+    margin: -22px 0;
+
+    border-left: 1px solid var(--hw-line);
+    background: var(--hw-surface);
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1100px) {
+    .hw-top {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        row-gap: 48px;
+    }
+
+    .hw-intro {
+        grid-column: 1 / -1;
+    }
+
+    .hw-panel {
+        padding-left: 32px;
+    }
+}
+
+@media (max-width: 800px) {
+    .hw {
+        padding: 72px 20px 64px;
+    }
+
+    .hw-top {
+        grid-template-columns: 1fr;
+        row-gap: 36px;
+    }
+
+    .hw-stage-wrap {
+        height: 440px;
+    }
+
+    .hw-panel {
+        padding: 28px 0 0;
+        border-left: 0;
+        border-top: 1px solid var(--hw-line);
+    }
+
+    .hw-cards {
+        grid-template-columns: 1fr;
+        margin-top: 40px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hw-hot::after {
+        animation: none;
+    }
+
+    .hw-card,
+    .hw-cta {
+        transition: none;
+    }
+}

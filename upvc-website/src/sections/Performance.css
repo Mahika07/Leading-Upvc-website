@@ -1,0 +1,778 @@
+/* =========================================================
+   PERFORMANCE — SECTION 09
+   GEALAN / PREMIUM ARCHITECTURAL DESIGN SYSTEM
+========================================================= */
+
+.performance {
+    position: relative;
+    width: 100%;
+    padding: 100px 5vw 45px;
+
+    background: #ffffff;
+    color: #303840;
+
+    overflow: hidden;
+}
+
+.performance-inner {
+    width: 100%;
+    max-width: 1500px;
+    margin: 0 auto;
+
+    display: grid;
+    grid-template-columns: minmax(300px, 0.72fr) minmax(700px, 1.75fr);
+
+    gap: 70px;
+    align-items: start;
+}
+
+/* =========================================================
+   LEFT INTRO
+========================================================= */
+
+.performance-intro {
+    position: sticky;
+    top: 110px;
+
+    align-self: start;
+
+    padding-top: 5px;
+}
+
+/* =========================================================
+   SECTION LABEL
+========================================================= */
+
+.performance-label {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    margin-bottom: 68px;
+
+    font-size: 10px;
+    font-weight: 600;
+
+    letter-spacing: 0.19em;
+
+    color: #737c84;
+}
+
+.performance-label span:first-child {
+    color: #0066b3;
+}
+
+.performance-label i {
+    display: block;
+
+    width: 32px;
+    height: 1px;
+
+    background: #cbd1d5;
+}
+
+/* =========================================================
+   MAIN HEADING
+========================================================= */
+
+.performance-intro h2 {
+    margin: 0;
+
+    max-width: 520px;
+
+    font-size: clamp(48px, 4.4vw, 76px);
+
+    line-height: 0.98;
+
+    letter-spacing: -0.055em;
+
+    font-weight: 500;
+
+    color: #111820;
+}
+
+.performance-intro h2 em {
+    color: #0066b3;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-weight: 400;
+
+    letter-spacing: -0.045em;
+}
+
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
+.performance-description {
+    max-width: 440px;
+
+    margin: 38px 0 35px;
+
+    font-size: 15px;
+
+    line-height: 1.75;
+
+    color: #737c84;
+}
+
+/* =========================================================
+   MAIN CTA
+========================================================= */
+
+.performance-button {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 28px;
+
+    min-width: 250px;
+
+    padding: 15px 19px 15px 22px;
+
+    border: 1px solid #0066b3;
+
+    border-radius: 999px;
+
+    background: #0066b3;
+
+    color: #ffffff;
+
+    text-decoration: none;
+
+    font-size: 13px;
+
+    font-weight: 500;
+
+    transition:
+        transform 0.3s ease,
+        background 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.performance-button svg {
+    transition: transform 0.3s ease;
+}
+
+.performance-button:hover {
+    background: #004b87;
+
+    transform: translateY(-3px);
+
+    box-shadow: 0 12px 30px rgba(0, 102, 179, 0.16);
+}
+
+.performance-button:hover svg {
+    transform: translate(3px, -3px);
+}
+
+/* =========================================================
+   INTRO FOOTER
+========================================================= */
+
+.performance-footer-label {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-top: 78px;
+
+    font-size: 9px;
+
+    letter-spacing: 0.2em;
+
+    color: #8a9298;
+}
+
+.performance-footer-label i {
+    display: block;
+
+    width: 25px;
+
+    height: 1px;
+
+    background: #cbd1d5;
+}
+
+/* =========================================================
+   PERFORMANCE CARD GRID
+========================================================= */
+
+.performance-grid {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 20px 16px;
+}
+
+/* =========================================================
+   PERFORMANCE CARD
+========================================================= */
+
+.performance-card {
+    position: relative;
+
+    min-width: 0;
+
+    min-height: 300px;
+
+    display: grid;
+
+    grid-template-columns: 1.02fr 0.98fr;
+
+    overflow: hidden;
+
+    border: 1px solid #e2e6e9;
+
+    border-radius: 14px;
+
+    background: #ffffff;
+
+    transition:
+        transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+        border-color 0.35s ease,
+        box-shadow 0.4s ease;
+}
+
+.performance-card:hover {
+    transform: translateY(-5px);
+
+    border-color: #b9d6e9;
+
+    box-shadow:
+        0 18px 45px rgba(24, 54, 73, 0.08);
+}
+
+/* =========================================================
+   CARD CONTENT
+========================================================= */
+
+.performance-card-content {
+    position: relative;
+
+    min-width: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    padding: 20px 14px 17px 20px;
+}
+
+/* =========================================================
+   CARD TOP
+========================================================= */
+
+.performance-card-top {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+}
+
+.performance-card-number {
+    font-size: 11px;
+
+    font-weight: 600;
+
+    letter-spacing: 0.05em;
+
+    color: #737c84;
+}
+
+/* =========================================================
+   ICON
+========================================================= */
+
+.performance-card-icon {
+    width: 52px;
+    height: 52px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid #d7e7f1;
+
+    border-radius: 50%;
+
+    background: #f4f9fc;
+
+    color: #0066b3;
+
+    transition:
+        transform 0.4s ease,
+        background 0.4s ease,
+        border-color 0.4s ease;
+}
+
+.performance-card:hover .performance-card-icon {
+    transform: scale(1.06);
+
+    border-color: #8cc7ed;
+
+    background: #eaf5fb;
+}
+
+/* =========================================================
+   CARD COPY
+========================================================= */
+
+.performance-card-copy {
+    margin-top: 20px;
+
+    padding-bottom: 31px;
+}
+
+.performance-card-copy h3 {
+    margin: 0 0 13px;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: clamp(22px, 1.65vw, 29px);
+
+    line-height: 0.98;
+
+    letter-spacing: -0.035em;
+
+    font-weight: 400;
+    word-wrap: break-word;
+    color: #111820;
+}
+
+.performance-card-copy h3 span {
+    color: #0066b3;
+}
+
+.performance-card-copy p {
+    margin: 0;
+
+    max-width: 180px;
+
+    font-size: 11.5px;
+
+    line-height: 1.55;
+
+    color: #737c84;
+}
+
+/* =========================================================
+   CARD ARROW
+========================================================= */
+
+.performance-card-arrow {
+    position: absolute;
+
+    left: 20px;
+    bottom: 16px;
+
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid #dfe5e9;
+
+    border-radius: 50%;
+
+    background: #ffffff;
+
+    color: #0066b3;
+
+    transition:
+        background 0.3s ease,
+        color 0.3s ease,
+        border-color 0.3s ease,
+        transform 0.3s ease;
+}
+
+.performance-card:hover .performance-card-arrow {
+    background: #0066b3;
+
+    border-color: #0066b3;
+
+    color: #ffffff;
+
+    transform: translate(2px, -2px);
+}
+
+/* =========================================================
+   CARD IMAGE
+========================================================= */
+
+.performance-card-image {
+    position: relative;
+
+    min-height: 100%;
+
+    overflow: hidden;
+
+    background: #eef0f2;
+}
+
+.performance-card-image img {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+
+    transition:
+        transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.performance-card:hover .performance-card-image img {
+    transform: scale(1.055);
+}
+
+/* =========================================================
+   IMAGE OVERLAY
+========================================================= */
+
+.performance-card-image-overlay {
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(90deg,
+            rgba(255, 255, 255, 0.05),
+            transparent 50%);
+
+    pointer-events: none;
+}
+
+/* =========================================================
+   BOTTOM CTA
+========================================================= */
+
+.performance-bottom {
+    width: 100%;
+
+    max-width: 1500px;
+
+    min-height: 112px;
+
+    margin: 70px auto 0;
+
+    display: grid;
+
+    grid-template-columns:
+        0.55fr 1.5fr auto;
+
+    align-items: center;
+
+    padding: 20px 28px;
+
+    border: 1px solid #d6e1e8;
+
+    border-radius: 14px;
+
+    background: #f7f9fa;
+}
+
+/* =========================================================
+   BOTTOM SMALL LABEL
+========================================================= */
+
+.performance-bottom-small {
+    padding-right: 30px;
+
+    font-size: 9px;
+
+    line-height: 1.7;
+
+    letter-spacing: 0.2em;
+
+    color: #737c84;
+}
+
+/* =========================================================
+   BOTTOM HEADING
+========================================================= */
+
+.performance-bottom-title {
+    padding: 0 45px;
+
+    border-left: 1px solid #d3dce2;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: clamp(25px, 2.25vw, 38px);
+
+    line-height: 1.05;
+
+    letter-spacing: -0.035em;
+
+    color: #111820;
+}
+
+.performance-bottom-title em {
+    color: #0066b3;
+
+    font-weight: 400;
+}
+
+/* =========================================================
+   BOTTOM BUTTON
+========================================================= */
+
+.performance-bottom-button {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 30px;
+
+    min-width: 200px;
+
+    padding: 14px 20px;
+
+    border-radius: 999px;
+
+    background: #0066b3;
+
+    color: #ffffff;
+
+    text-decoration: none;
+
+    font-size: 13px;
+
+    font-weight: 500;
+
+    transition:
+        transform 0.3s ease,
+        background 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.performance-bottom-button:hover {
+    background: #004b87;
+
+    transform: translateY(-3px);
+
+    box-shadow: 0 12px 28px rgba(0, 102, 179, 0.15);
+}
+
+.performance-bottom-button svg {
+    transition: transform 0.3s ease;
+}
+
+.performance-bottom-button:hover svg {
+    transform: translate(3px, -3px);
+}
+
+/* =========================================================
+   PAGE NUMBER
+========================================================= */
+
+.performance-page-number {
+    max-width: 1500px;
+
+    margin: 34px auto 0;
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    align-items: center;
+
+    gap: 10px;
+
+    font-size: 9px;
+
+    letter-spacing: 0.16em;
+
+    color: #9aa2a8;
+}
+
+.performance-page-number i {
+    width: 45px;
+
+    height: 1px;
+
+    background: #cbd1d5;
+}
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1200px) {
+    .performance {
+        padding: 110px 4vw 40px;
+    }
+
+    .performance-inner {
+        grid-template-columns: 1fr;
+
+        gap: 60px;
+    }
+
+    .performance-intro {
+        position: relative;
+
+        top: auto;
+    }
+
+    .performance-intro h2 {
+        max-width: 700px;
+    }
+
+    .performance-description {
+        max-width: 620px;
+    }
+
+    .performance-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+    .performance {
+        padding-top: 95px;
+    }
+
+    .performance-grid {
+        grid-template-columns: repeat(2, 1fr);
+
+        gap: 16px;
+    }
+
+    .performance-card {
+        min-height: 315px;
+    }
+
+    .performance-bottom {
+        grid-template-columns: 1fr;
+
+        gap: 24px;
+
+        padding: 27px;
+    }
+
+    .performance-bottom-title {
+        padding: 24px 0;
+
+        border-left: none;
+
+        border-top: 1px solid #d3dce2;
+
+        border-bottom: 1px solid #d3dce2;
+    }
+
+    .performance-bottom-button {
+        width: fit-content;
+    }
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+    .performance {
+        padding: 80px 18px 30px;
+    }
+
+    .performance-label {
+        margin-bottom: 42px;
+    }
+
+    .performance-intro h2 {
+        font-size: clamp(43px, 13vw, 60px);
+    }
+
+    .performance-description {
+        margin-top: 28px;
+
+        font-size: 14px;
+
+        line-height: 1.7;
+    }
+
+    .performance-button {
+        width: 100%;
+
+        min-width: 0;
+    }
+
+    .performance-footer-label {
+        margin-top: 52px;
+
+        flex-wrap: wrap;
+    }
+
+    .performance-grid {
+        grid-template-columns: 1fr;
+
+        gap: 14px;
+    }
+
+    .performance-card {
+        min-height: 285px;
+    }
+
+    .performance-card-copy h3 {
+        font-size: 28px;
+    }
+
+    .performance-card-copy p {
+        max-width: 190px;
+    }
+
+    .performance-bottom {
+        margin-top: 45px;
+
+        padding: 24px 20px;
+    }
+
+    .performance-bottom-title {
+        font-size: 29px;
+    }
+
+    .performance-bottom-button {
+        width: 100%;
+    }
+
+    .performance-page-number {
+        margin-top: 25px;
+    }
+}
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .performance-card,
+    .performance-card-image img,
+    .performance-card-icon,
+    .performance-card-arrow,
+    .performance-button,
+    .performance-bottom-button {
+        transition: none;
+    }
+}

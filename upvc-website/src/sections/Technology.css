@@ -1,0 +1,998 @@
+/* =========================================================
+   TECHNOLOGY SECTION
+========================================================= */
+
+.technology {
+    --tech-blue: #0066b3;
+    --tech-blue-light: #58b9ef;
+    --tech-ink: #172129;
+
+    position: relative;
+    display: flex;
+    width: 100%;
+    min-height: max(100vh, 760px);
+    overflow: hidden;
+    isolation: isolate;
+    background: #151311;
+    color: #fff;
+}
+
+/* ---------------- background ---------------- */
+
+.technology-background {
+    position: absolute;
+    inset: 0;
+    z-index: -3;
+    background: url("/images/technology-bg.jpg") center / cover no-repeat;
+    filter: saturate(0.85) brightness(0.9);
+}
+
+.technology-background-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    background:
+        radial-gradient(circle at 62% 58%,
+            rgba(0, 102, 179, 0.16),
+            transparent 38%),
+        linear-gradient(90deg,
+            rgba(14, 12, 10, 0.95) 0%,
+            rgba(14, 12, 10, 0.78) 28%,
+            rgba(14, 12, 10, 0.25) 62%,
+            rgba(14, 12, 10, 0.5) 100%);
+}
+
+/* =========================================================
+   LAYOUT
+========================================================= */
+
+.tech-inner {
+    position: relative;
+    width: 100%;
+    max-width: 1680px;
+    margin: 0 auto;
+    padding: clamp(28px, 4.5vh, 48px) clamp(20px, 4.5vw, 76px) clamp(28px, 4vh, 44px);
+
+    display: grid;
+    grid-template-columns: minmax(300px, 30%) minmax(0, 1fr) 128px;
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+        "top   top   top"
+        "left  stage rail";
+    column-gap: clamp(12px, 2vw, 32px);
+}
+
+.tech-topbar {
+    grid-area: top;
+    margin-bottom: clamp(12px, 3vh, 36px);
+}
+
+.tech-brand-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+}
+
+.tech-brand-label span {
+    width: 36px;
+    height: 1px;
+    background: #63baf1;
+}
+
+/* =========================================================
+   LEFT COLUMN
+========================================================= */
+
+.tech-left {
+    grid-area: left;
+    align-self: start;
+    max-width: 440px;
+}
+
+.tech-left h2 {
+    font-family: "Manrope", sans-serif;
+    font-size: clamp(46px, 4.7vw, 78px);
+    font-weight: 800;
+    line-height: 0.92;
+    letter-spacing: -0.06em;
+}
+
+.tech-left h2 em {
+    color: #67baf0;
+    font-family: Georgia, serif;
+    font-size: 0.74em;
+    font-weight: 400;
+    font-style: italic;
+    letter-spacing: -0.03em;
+}
+
+.tech-lede {
+    margin: 22px 0 26px;
+    max-width: 38ch;
+
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 14px;
+    line-height: 1.65;
+}
+
+/* ---------------- features ---------------- */
+
+.tech-features {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    list-style: none;
+}
+
+.tech-feature {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 9px 14px;
+
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 12px;
+    background: rgba(15, 18, 20, 0.42);
+    backdrop-filter: blur(10px);
+}
+
+.tech-feature-icon {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+
+    border: 1px solid rgba(92, 182, 238, 0.65);
+    border-radius: 50%;
+    background: rgba(0, 75, 135, 0.4);
+    color: #a9dcf7;
+}
+
+.tech-feature h3 {
+    margin-bottom: 2px;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.tech-feature p {
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 11.5px;
+    line-height: 1.4;
+}
+
+.tech-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 26px;
+
+    font-size: 13px;
+    font-weight: 700;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+    padding-bottom: 3px;
+    transition: border-color 0.25s ease, color 0.25s ease;
+}
+
+.tech-link:hover,
+.tech-link:focus-visible {
+    color: var(--tech-blue-light);
+    border-color: var(--tech-blue-light);
+}
+
+/* =========================================================
+   STAGE (centre)
+========================================================= */
+
+.tech-stage {
+    grid-area: stage;
+    position: relative;
+    align-self: start;
+    /* top lines up with the headline and the component rail */
+    height: clamp(560px, calc(100vh - 140px), 700px);
+
+    cursor: grab;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: pan-y;
+    /* horizontal drag rotates, vertical swipe still scrolls */
+    outline: none;
+}
+
+.tech-stage.is-dragging {
+    cursor: grabbing;
+}
+
+.tech-stage:focus-visible {
+    outline: 2px solid var(--tech-blue-light);
+    outline-offset: 4px;
+    border-radius: 16px;
+}
+
+.tech-glow {
+    position: absolute;
+    left: 50%;
+    top: 42%;
+    width: 78%;
+    aspect-ratio: 1;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+
+    background: radial-gradient(circle,
+            rgba(255, 255, 255, 0.2),
+            rgba(0, 102, 179, 0.1) 40%,
+            transparent 68%);
+}
+
+/* ---------------- turntable ---------------- */
+
+.tech-turntable {
+    position: absolute;
+    left: 50%;
+    bottom: 11%;
+    width: min(82%, 720px);
+    aspect-ratio: 1;
+    pointer-events: none;
+
+    /* squash the circle into a flat platform, then drop it so its centre sits at `bottom` */
+    transform: translateX(-50%) translateY(50%) rotateX(72deg);
+    transform-style: preserve-3d;
+}
+
+.tech-disc-layer,
+.tech-disc-top {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+}
+
+.tech-disc-layer {
+    background: linear-gradient(180deg, #dfe5e8, #aab4ba);
+}
+
+.tech-disc-top {
+    display: block;
+    background:
+        radial-gradient(circle at 50% 42%, #ffffff 0%, #e9eef0 55%, #cfd8dc 100%);
+    box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.7),
+        0 0 90px rgba(120, 190, 235, 0.35);
+}
+
+/* rotating tick ring: this is what makes the turntable visibly spin */
+.tech-ring {
+    position: absolute;
+    inset: 5%;
+    border-radius: 50%;
+    will-change: transform;
+
+    background: repeating-conic-gradient(from 0deg,
+            rgba(23, 33, 41, 0.5) 0 0.5deg,
+            transparent 0.5deg 5deg);
+    -webkit-mask: radial-gradient(circle,
+            transparent 0 79%,
+            #000 80% 90%,
+            transparent 91%);
+    mask: radial-gradient(circle,
+            transparent 0 79%,
+            #000 80% 90%,
+            transparent 91%);
+}
+
+.tech-ring::after {
+    /* a single bright marker so rotation direction is readable */
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 2%;
+    width: 3%;
+    height: 3%;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    background: var(--tech-blue);
+    box-shadow: 0 0 14px 3px rgba(0, 102, 179, 0.7);
+}
+
+.tech-shadow {
+    position: absolute;
+    left: 50%;
+    bottom: 14.5%;
+    width: 46%;
+    height: 28px;
+    pointer-events: none;
+
+    border-radius: 50%;
+    background: radial-gradient(ellipse,
+            rgba(10, 20, 30, 0.45),
+            transparent 70%);
+    filter: blur(6px);
+}
+
+/* ---------------- model ---------------- */
+
+.tech-model {
+    position: absolute;
+    left: 50%;
+    bottom: 12%;
+    width: min(60%, 560px);
+    transform: translateX(-50%);
+    pointer-events: none;
+}
+
+.tech-spin {
+    position: relative;
+    will-change: transform;
+    transform-origin: 50% 50%;
+}
+
+.tech-profile-img {
+    display: block;
+    width: 100%;
+    height: auto;
+
+    filter: drop-shadow(0 22px 24px rgba(0, 0, 0, 0.35));
+    transition: filter 0.4s ease;
+}
+
+.tech-profile-img.is-section {
+    filter: drop-shadow(0 0 18px rgba(88, 185, 239, 0.65)) drop-shadow(0 22px 24px rgba(0, 0, 0, 0.3));
+}
+
+/* ---------------- hotspots (live inside the spinning element) ---------------- */
+
+.tech-hotspot {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    margin: -8px 0 0 -8px;
+    border-radius: 50%;
+
+    background: var(--tech-blue);
+    border: 2px solid #fff;
+    box-shadow: 0 0 14px rgba(0, 102, 179, 0.8);
+
+    opacity: 0;
+    transform: scale(0.4);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.tech-hotspot::after {
+    content: "";
+    position: absolute;
+    inset: -9px;
+    border-radius: 50%;
+    border: 2px solid var(--tech-blue-light);
+    animation: tech-pulse 1.8s ease-out infinite;
+}
+
+.tech-hotspot.is-active {
+    opacity: 1;
+    transform: scale(1);
+}
+
+@keyframes tech-pulse {
+    0% {
+        transform: scale(0.5);
+        opacity: 0.9;
+    }
+
+    100% {
+        transform: scale(1.7);
+        opacity: 0;
+    }
+}
+
+/* =========================================================
+   CALLOUTS
+========================================================= */
+
+.tech-callout {
+    position: absolute;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    pointer-events: none;
+
+    opacity: 0.62;
+    transform: translateY(-50%);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.tech-callout.is-active {
+    opacity: 1;
+    transform: translateY(-50%) scale(1.04);
+}
+
+.tech-stage[data-active="profile"] .tech-callout,
+.tech-stage[data-active="section"] .tech-callout {
+    opacity: 1;
+    transform: translateY(-50%);
+}
+
+.callout-card {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    width: 200px;
+    padding: 10px 12px;
+
+    border-radius: 13px;
+    background: rgba(255, 255, 255, 0.95);
+    color: var(--tech-ink);
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.22);
+}
+
+.tech-callout.is-active .callout-card {
+    box-shadow:
+        0 0 0 2px var(--tech-blue-light),
+        0 18px 45px rgba(0, 0, 0, 0.25);
+    background-color: rgb(0, 74, 135)
+}
+
+.callout-card strong {
+    display: block;
+    margin-bottom: 3px;
+    font-size: 12px;
+}
+
+.callout-card p {
+    color: #6d7a82;
+    font-size: 10px;
+    line-height: 1.4;
+}
+
+.tech-callout.is-active .callout-card p,
+.tech-callout.is-active .callout-card strong {
+    color: white;
+}
+
+.callout-line {
+    width: 30px;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.85);
+}
+
+.callout-dot {
+    flex-shrink: 0;
+    width: 13px;
+    height: 13px;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    background: var(--tech-blue);
+    box-shadow: 0 0 14px rgba(0, 102, 179, 0.7);
+}
+
+/* right-hand callouts read dot → line → card */
+.tech-callout.side-right {
+    flex-direction: row-reverse;
+}
+
+/* the glazing target is further from its card than the others */
+.callout-glazing .callout-line {
+    width: 90px;
+}
+
+/* `top` is the vertical CENTRE of each callout, tuned to the feature it names */
+.callout-glazing {
+    right: 0;
+    top: 33%;
+}
+
+.callout-reinforcement {
+    left: 0;
+    top: 57%;
+}
+
+.callout-gasket {
+    right: 0;
+    top: 67%;
+}
+
+.callout-profile {
+    left: 0;
+    top: 84%;
+}
+
+/* =========================================================
+   DRAG LABEL
+========================================================= */
+
+.tech-drag {
+    position: absolute;
+    left: 50%;
+    bottom: 1%;
+    z-index: 6;
+    transform: translateX(-50%);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    pointer-events: none;
+    text-align: center;
+}
+
+.tech-drag-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--tech-ink);
+}
+
+.tech-drag-note {
+    max-width: 44ch;
+    min-height: 2.8em;
+    color: #51606a;
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+/* =========================================================
+   COMPONENT SELECTOR (right)
+========================================================= */
+
+.tech-rail {
+    grid-area: rail;
+    align-self: start;
+}
+
+.tech-rail-title {
+    margin-bottom: 14px;
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    line-height: 1.5;
+}
+
+.tech-rail-title strong {
+    display: block;
+    color: #fff;
+}
+
+.tech-rail-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.tech-rail-item {
+    position: relative;
+    width: 100%;
+    padding: 0;
+
+    border: 0;
+    background: transparent;
+    color: #fff;
+    text-align: left;
+}
+
+.tech-rail-item:focus-visible {
+    outline: 2px solid var(--tech-blue-light);
+    outline-offset: 3px;
+    border-radius: 10px;
+}
+
+.tech-rail-number {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    z-index: 2;
+
+    display: grid;
+    place-items: center;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.6);
+    font-size: 9px;
+    font-weight: 700;
+}
+
+.tech-rail-label {
+    display: block;
+    padding-top: 5px;
+    font-size: 11px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.tech-rail-item .tech-thumb {
+    width: 100%;
+    aspect-ratio: 5 / 3;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 9px;
+    transition:
+        border-color 0.25s ease,
+        box-shadow 0.25s ease,
+        transform 0.25s ease;
+}
+
+.tech-rail-item:hover .tech-thumb {
+    transform: translateY(-2px);
+    border-color: rgba(100, 190, 240, 0.7);
+}
+
+.tech-rail-item.is-active .tech-thumb {
+    border-color: var(--tech-blue-light);
+    box-shadow:
+        0 0 0 1px rgba(88, 185, 239, 0.3),
+        0 0 22px rgba(0, 102, 179, 0.4);
+}
+
+.tech-rail-item.is-active .tech-rail-label {
+    color: #fff;
+}
+
+/* =========================================================
+   THUMBNAILS  (cropped from the same PNG, no extra assets)
+   Shared by the rail and the callout cards.
+========================================================= */
+
+.tech-thumb {
+    display: block;
+    flex-shrink: 0;
+    background-color: rgba(255, 255, 255, 0.92);
+    background-image: url("/images/profile-3d.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
+.thumb-profile {
+    background-size: 88% auto;
+}
+
+.thumb-glazing {
+    background-image: url("/images/profile-glazing.png");
+    background-size: auto 112%;
+}
+
+.thumb-reinforcement {
+    background-size: 300% auto;
+    background-position: 24.5% 61%;
+}
+
+.thumb-gasket {
+    background-size: 300% auto;
+    background-position: 74% 75%;
+}
+
+.thumb-section {
+    background-size: 220% auto;
+    background-position: 22.5% 95%;
+}
+
+/* callout cards use a smaller thumb, same 5:3 ratio */
+.callout-card .tech-thumb {
+    width: 62px;
+    aspect-ratio: 5 / 3;
+    border-radius: 8px;
+    border: 1px solid #dde3e6;
+}
+
+/* =========================================================
+   PAGE NUMBER
+========================================================= */
+
+.tech-page-number {
+    position: absolute;
+    right: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 9px;
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 10px;
+}
+
+.tech-page-number i {
+    width: 1px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.18);
+}
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1240px) {
+    .tech-inner {
+        grid-template-columns: minmax(280px, 32%) minmax(0, 1fr) 110px;
+    }
+
+    .tech-callout {}
+
+    .tech-model {
+        width: min(68%, 560px);
+    }
+}
+
+@media (max-width: 1000px) {
+    .tech-page-number {
+        display: none;
+    }
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+/* =========================================================
+   MOBILE
+   Replaces the old MOBILE block (everything from the
+   "MOBILE" comment down to just above "REDUCED MOTION").
+
+   Idea: the four callout cards cannot sit around a small
+   model without covering it, so on mobile only the ACTIVE
+   callout is shown, as one full-width card under the
+   turntable. The pulsing hotspot on the model shows which
+   part it describes.
+========================================================= */
+
+@media (max-width: 860px) {
+    .technology {
+        min-height: 0;
+    }
+
+    .tech-inner {
+        /* minmax(0, 1fr) stops the swipeable rail from stretching the page wider than the screen */
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-rows: auto;
+        grid-template-areas:
+            "top"
+            "left"
+            "stage"
+            "rail";
+        row-gap: 8px;
+        padding-top: 28px;
+        padding-bottom: 36px;
+    }
+
+    .tech-left {
+        max-width: none;
+    }
+
+    .tech-left h2 {
+        font-size: clamp(42px, 12vw, 58px);
+    }
+
+    .tech-lede {
+        max-width: none;
+    }
+
+    .tech-features {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+    }
+
+    .tech-feature {
+        padding: 9px 10px;
+        gap: 9px;
+    }
+
+    .tech-feature-icon {
+        width: 32px;
+        height: 32px;
+    }
+
+    .tech-feature p {
+        display: none;
+    }
+
+    /* ---------------- stage ---------------- */
+
+    .tech-stage {
+        height: 500px;
+        margin-top: 20px;
+    }
+
+    .tech-glow {
+        top: 38%;
+        width: 100%;
+    }
+
+    .tech-turntable {
+        bottom: 38%;
+        width: 88%;
+    }
+
+    .tech-shadow {
+        bottom: 41.5%;
+        width: 50%;
+    }
+
+    .tech-model {
+        bottom: 39%;
+        width: min(92%, 400px);
+    }
+
+    /* ---------------- callouts: only the active one, as a card ---------------- */
+
+    .tech-stage[data-active] .tech-callout {
+        display: none;
+    }
+
+    .tech-stage[data-active] .tech-callout.is-active {
+        display: flex;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: auto;
+        bottom: 36px;
+
+        flex-direction: row;
+        opacity: 1;
+        transform: none;
+        animation: tech-card-in 0.35s ease both;
+    }
+
+    .tech-callout .callout-line,
+    .tech-callout .callout-dot {
+        display: none;
+    }
+
+    .tech-callout .callout-card {
+        width: 100%;
+        gap: 12px;
+        padding: 12px 14px;
+    }
+
+    .callout-card strong {
+        font-size: 13px;
+    }
+
+    .callout-card p {
+        font-size: 11px;
+    }
+
+    .callout-card .tech-thumb {
+        width: 72px;
+    }
+
+    @keyframes tech-card-in {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        to {
+            opacity: 1;
+            transform: none;
+        }
+    }
+
+    /* ---------------- drag label ---------------- */
+
+    .tech-drag {
+        bottom: 0;
+        gap: 4px;
+    }
+
+    .tech-drag-label {
+        color: rgba(255, 255, 255, 0.85);
+        font-size: 10px;
+    }
+
+    /* the "Profile Section" component has no callout card,
+       so its description takes the card's place */
+    .tech-drag-note {
+        display: none;
+    }
+
+    .tech-stage[data-active="section"] .tech-drag-note {
+        display: block;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 28px;
+        max-width: none;
+        min-height: 0;
+        padding: 12px 14px;
+
+        border-radius: 13px;
+        background: rgba(0, 74, 135, 0.92);
+        color: #fff;
+        font-size: 12px;
+        animation: tech-card-in 0.35s ease both;
+    }
+
+    /* ---------------- component selector: swipeable row ---------------- */
+
+    .tech-rail {
+        min-width: 0;
+        margin-top: 4px;
+    }
+
+    .tech-rail-list {
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+        margin-inline: calc(-1 * clamp(20px, 4.5vw, 76px));
+        padding: 2px clamp(20px, 4.5vw, 76px) 8px;
+
+        overflow-x: auto;
+        scroll-snap-type: x proximity;
+        scroll-padding-inline: clamp(20px, 4.5vw, 76px);
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .tech-rail-list::-webkit-scrollbar {
+        display: none;
+    }
+
+    .tech-rail-item {
+        flex: 0 0 104px;
+        width: 104px;
+        scroll-snap-align: start;
+    }
+
+    .tech-rail-label {
+        font-size: 10.5px;
+    }
+
+    .tech-rail-number {
+        top: 5px;
+        left: 5px;
+        width: 16px;
+        height: 16px;
+        font-size: 8.5px;
+    }
+}
+
+@media (max-width: 430px) {
+    .tech-features {
+        grid-template-columns: 1fr;
+    }
+
+    .tech-stage {
+        height: 460px;
+    }
+
+    .tech-turntable {
+        bottom: 40%;
+    }
+
+    .tech-shadow {
+        bottom: 43.5%;
+    }
+
+    .tech-model {
+        bottom: 41%;
+        width: 96%;
+    }
+
+    .tech-stage[data-active] .tech-callout.is-active {
+        bottom: 34px;
+    }
+
+    .callout-card .tech-thumb {
+        width: 64px;
+    }
+}
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+    .tech-hotspot::after {
+        animation: none;
+    }
+}

@@ -1,0 +1,1256 @@
+/* =========================================================
+   QUOTE CONFIGURATOR
+   Same language as Legacy / Systems / Openings: white ground,
+   square corners, 1px hairlines, Manrope + Georgia italic, GEALAN blue.
+========================================================= */
+
+.quote {
+    --qc-blue: #0066b3;
+    --qc-blue-dark: #004b87;
+    --qc-blue-light: #eaf4fb;
+    --qc-ink: #111820;
+    --qc-grey: #737c84;
+    --qc-line: #dfe4e8;
+    --qc-surface: #f7f8f9;
+    --qc-danger: #c0392b;
+
+    position: relative;
+    width: 100%;
+    padding: 100px 40px 110px;
+
+    background: #ffffff;
+    color: var(--qc-ink);
+    overflow: hidden;
+}
+
+.qc-inner {
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 340px;
+    grid-template-areas:
+        "intro intro"
+        "panel side";
+    column-gap: 32px;
+    row-gap: 56px;
+    align-items: start;
+}
+
+/* =========================================================
+   INTRO
+========================================================= */
+
+.qc-intro {
+    grid-area: intro;
+
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+    gap: 0 64px;
+    align-items: end;
+}
+
+.qc-label {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 26px;
+
+    color: var(--qc-grey);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+}
+
+.qc-label b {
+    color: var(--qc-blue);
+    font-weight: 700;
+}
+
+.qc-label i {
+    font-style: normal;
+    color: #b4bcc2;
+}
+
+.qc-label span {
+    width: 36px;
+    height: 1px;
+    background: var(--qc-line);
+}
+
+.qc-intro h2 {
+    grid-column: 1;
+    font-family: "Manrope", sans-serif;
+    font-size: clamp(44px, 5vw, 72px);
+    font-weight: 700;
+    line-height: 0.94;
+    letter-spacing: -0.065em;
+}
+
+.qc-intro h2 em {
+    display: inline-block;
+    margin-top: 6px;
+
+    color: var(--qc-blue);
+    font-family: Georgia, serif;
+    font-size: 0.82em;
+    font-weight: 400;
+    font-style: italic;
+    letter-spacing: -0.03em;
+}
+
+.qc-intro>p {
+    grid-column: 1;
+    max-width: 46ch;
+    margin-top: 26px;
+
+    color: var(--qc-grey);
+    font-size: 14px;
+    line-height: 1.75;
+}
+
+.qc-perks {
+    grid-column: 2;
+    grid-row: 2 / span 2;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    list-style: none;
+}
+
+.qc-perks li {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.qc-perks strong {
+    display: block;
+    margin-bottom: 3px;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.qc-perks li span:not(.qc-icon-box) {
+    color: var(--qc-grey);
+    font-size: 12.5px;
+}
+
+.qc-icon-box {
+    display: grid;
+    flex-shrink: 0;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+
+    border: 1px solid var(--qc-line);
+    background: var(--qc-surface);
+    color: var(--qc-blue);
+}
+
+/* =========================================================
+   PANEL
+========================================================= */
+
+.qc-panel {
+    grid-area: panel;
+    min-width: 0;
+
+    border: 1px solid var(--qc-line);
+    background: #fcfdfd;
+    box-shadow: 0 24px 60px rgba(20, 35, 45, 0.05);
+}
+
+/* ---------------- progress ---------------- */
+
+.qc-steps {
+    display: flex;
+    padding: 28px 28px 22px;
+
+    border-bottom: 1px solid var(--qc-line);
+    list-style: none;
+}
+
+.qc-steps li {
+    position: relative;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.qc-steps button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 0;
+
+    border: 0;
+    background: transparent;
+    color: #9aa3a9;
+}
+
+.qc-step-dot {
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+
+    border: 1px solid var(--qc-line);
+    border-radius: 50%;
+    background: #ffffff;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    transition:
+        background 0.4s ease,
+        border-color 0.4s ease,
+        color 0.4s ease,
+        box-shadow 0.4s ease;
+}
+
+.qc-step-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    transition: color 0.3s ease;
+}
+
+.qc-steps .is-current .qc-step-dot,
+.qc-steps .is-done .qc-step-dot {
+    border-color: var(--qc-blue);
+    background: var(--qc-blue);
+    color: #ffffff;
+}
+
+.qc-steps .is-current .qc-step-dot {
+    box-shadow: 0 0 0 5px rgba(0, 102, 179, 0.14);
+}
+
+.qc-steps .is-current .qc-step-label,
+.qc-steps .is-done .qc-step-label {
+    color: var(--qc-ink);
+}
+
+/* the line between two steps; it fills as the first one is completed */
+.qc-step-track {
+    position: absolute;
+    top: 19px;
+    left: calc(50% + 34px);
+    right: calc(-50% + 34px);
+    height: 2px;
+
+    background: var(--qc-line);
+    overflow: hidden;
+}
+
+.qc-step-track i {
+    display: block;
+    width: 100%;
+    height: 100%;
+
+    background: var(--qc-blue);
+    transform-origin: left;
+    transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ---------------- body ---------------- */
+
+.qc-panel-body {
+    display: grid;
+    grid-template-columns: minmax(300px, 400px) minmax(0, 1fr);
+    gap: 32px;
+    padding: 28px;
+}
+
+/* =========================================================
+   CONTROLS
+========================================================= */
+
+.qc-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    min-width: 0;
+}
+
+.qc-group h3 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+
+    font-family: "Manrope", sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+}
+
+.qc-group h3 span {
+    display: grid;
+    place-items: center;
+    width: 24px;
+    height: 24px;
+
+    border-radius: 50%;
+    background: var(--qc-blue);
+    color: #ffffff;
+    font-size: 11px;
+}
+
+/* ---------------- tiles ---------------- */
+
+.qc-tiles {
+    display: grid;
+    gap: 10px;
+}
+
+.qc-tiles-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.qc-tiles-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.qc-tile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    min-width: 0;
+    padding: 14px 6px 12px;
+
+    border: 1px solid var(--qc-line);
+    background: #ffffff;
+    color: #5f6a72;
+    font-size: 11.5px;
+    font-weight: 600;
+    line-height: 1.3;
+    text-align: center;
+
+    transition:
+        border-color 0.25s ease,
+        background 0.25s ease,
+        color 0.25s ease,
+        transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+        box-shadow 0.35s ease;
+}
+
+.qc-tile:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 28px rgba(20, 35, 45, 0.08);
+}
+
+.qc-tile.is-active {
+    border-color: var(--qc-blue);
+    background: var(--qc-blue-light);
+    color: var(--qc-blue);
+}
+
+.qc-line-icon {
+    width: 54px;
+    height: 40px;
+}
+
+.qc-tile-small .qc-line-icon {
+    width: 42px;
+    height: 34px;
+}
+
+/* ---------------- colours ---------------- */
+
+.qc-colours {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px 8px;
+}
+
+.qc-swatch {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+    padding: 0;
+
+    border: 0;
+    background: transparent;
+    color: var(--qc-grey);
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.qc-swatch-dot {
+    display: block;
+    width: 46px;
+    height: 46px;
+
+    border-radius: 50%;
+    background-color: var(--sw);
+    background-image:
+        var(--sw-grain, none),
+        linear-gradient(135deg, var(--sw-hi) 0%, var(--sw) 45%, var(--sw-lo) 100%);
+    box-shadow:
+        inset 0 0 0 1px rgba(0, 0, 0, 0.18),
+        0 6px 14px rgba(20, 35, 45, 0.14);
+    transition:
+        transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+        box-shadow 0.3s ease;
+}
+
+.qc-swatch.finish-wood {
+    --sw-grain:
+        repeating-linear-gradient(88deg, rgba(0, 0, 0, 0.2) 0 1px, transparent 1px 5px),
+        repeating-linear-gradient(93deg, rgba(255, 255, 255, 0.09) 0 2px, transparent 2px 12px);
+}
+
+.qc-swatch.is-custom .qc-swatch-dot {
+    background-image: conic-gradient(from 0deg,
+            #e5594f,
+            #f2b134,
+            #7cc576,
+            #3eb7c9,
+            #5a7fe0,
+            #a35fd1,
+            #e5594f);
+}
+
+.qc-swatch:hover .qc-swatch-dot {
+    transform: translateY(-3px);
+}
+
+.qc-swatch.is-active .qc-swatch-dot {
+    box-shadow:
+        inset 0 0 0 1px rgba(0, 0, 0, 0.18),
+        0 0 0 3px #ffffff,
+        0 0 0 5px var(--qc-blue);
+}
+
+.qc-swatch.is-active {
+    color: var(--qc-ink);
+}
+
+/* the real <input type="color"> lives off-screen and is opened by "Custom" */
+.qc-color-input {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* ---------------- size + quantity ---------------- */
+
+.qc-size {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.qc-field label {
+    display: block;
+    margin-bottom: 8px;
+
+    color: var(--qc-grey);
+    font-size: 11.5px;
+    font-weight: 600;
+}
+
+.qc-stepper {
+    display: flex;
+    align-items: stretch;
+    border: 1px solid var(--qc-line);
+    background: #ffffff;
+}
+
+.qc-stepper input {
+    flex: 1;
+    min-width: 0;
+    padding: 11px 12px;
+
+    border: 0;
+    background: transparent;
+    color: var(--qc-ink);
+    font-size: 14px;
+    font-weight: 600;
+    outline: none;
+}
+
+.qc-stepper button,
+.qc-qty button {
+    display: grid;
+    place-items: center;
+    width: 34px;
+
+    border: 0;
+    border-left: 1px solid var(--qc-line);
+    background: transparent;
+    color: var(--qc-ink);
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.qc-stepper:focus-within {
+    border-color: var(--qc-blue);
+}
+
+.qc-stepper button:hover,
+.qc-qty button:hover:not(:disabled) {
+    background: var(--qc-blue-light);
+    color: var(--qc-blue);
+}
+
+.qc-qty {
+    display: inline-flex;
+    align-items: stretch;
+    border: 1px solid var(--qc-line);
+    background: #ffffff;
+}
+
+.qc-qty button {
+    width: 42px;
+    height: 42px;
+    border: 0;
+}
+
+.qc-qty button:first-child {
+    border-right: 1px solid var(--qc-line);
+}
+
+.qc-qty button:last-child {
+    border-left: 1px solid var(--qc-line);
+}
+
+.qc-qty button:disabled {
+    color: #c3cacf;
+}
+
+.qc-qty output {
+    display: grid;
+    place-items: center;
+    min-width: 62px;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+/* =========================================================
+   PREVIEW
+========================================================= */
+
+.qc-preview-col {
+    position: sticky;
+    top: 88px;
+    align-self: start;
+
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-width: 0;
+}
+
+.qc-preview {
+    --qc-c: #7b4626;
+    --qc-grain: 1;
+
+    position: relative;
+    aspect-ratio: 4 / 4.9;
+    overflow: hidden;
+
+    border: 1px solid var(--qc-line);
+    background: #efe7dc;
+    isolation: isolate;
+}
+
+/*
+ * Backdrops. Your photo is listed first; the gradient behind it is what you
+ * see until the file exists (public/images/configurator/).
+ */
+.qc-backdrop {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    transition: opacity 0.7s ease;
+}
+
+.qc-backdrop-exterior {
+    background:
+        url("/images/configurator/exterior.jpg") center / cover no-repeat,
+        radial-gradient(circle at 78% 18%, rgba(255, 255, 255, 0.7), transparent 45%),
+        linear-gradient(160deg, #efe4d4 0%, #d8c6ae 100%);
+}
+
+.qc-backdrop-interior {
+    background:
+        url("/images/configurator/interior.jpg") center / cover no-repeat,
+        radial-gradient(circle at 25% 20%, rgba(255, 255, 255, 0.85), transparent 50%),
+        linear-gradient(160deg, #f7f2ea 0%, #e6dccd 100%);
+    opacity: 0;
+}
+
+.qc-preview[data-side="interior"] .qc-backdrop-interior {
+    opacity: 1;
+}
+
+.qc-stage {
+    position: absolute;
+    inset: 62px 16px 76px;
+    z-index: 1;
+}
+
+.qc-stage-inner {
+    width: 100%;
+    height: 100%;
+}
+
+.qc-svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    filter: drop-shadow(0 26px 24px rgba(40, 26, 12, 0.3));
+}
+
+.qc-fill {
+    fill: var(--qc-c);
+    transition: fill 0.5s ease;
+}
+
+.qc-grain {
+    opacity: var(--qc-grain);
+    transition: opacity 0.5s ease;
+}
+
+.qc-dims {
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.qc-dims.is-on {
+    opacity: 1;
+}
+
+.qc-dims path {
+    fill: none;
+    stroke: #4d5963;
+    stroke-width: 2;
+}
+
+.qc-dims text {
+    fill: #323c45;
+    font-family: "Manrope", sans-serif;
+    font-size: 34px;
+    font-weight: 700;
+    paint-order: stroke;
+    stroke: rgba(255, 255, 255, 0.85);
+    stroke-width: 8px;
+    stroke-linejoin: round;
+}
+
+/* ---------------- preview controls ---------------- */
+
+.qc-toggle {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    z-index: 3;
+
+    display: flex;
+    border: 1px solid var(--qc-line);
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.qc-toggle button {
+    padding: 9px 15px;
+
+    border: 0;
+    background: transparent;
+    color: var(--qc-grey);
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    transition: background 0.25s ease, color 0.25s ease;
+}
+
+.qc-toggle button.is-active {
+    background: var(--qc-blue);
+    color: #ffffff;
+}
+
+.qc-badge {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    z-index: 3;
+
+    padding: 9px 13px;
+    background: var(--qc-ink);
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+}
+
+.qc-nav {
+    position: absolute;
+    bottom: 10px;
+    z-index: 3;
+
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+
+    border: 1px solid var(--qc-line);
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.92);
+    color: var(--qc-ink);
+    transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+}
+
+.qc-nav:hover {
+    border-color: var(--qc-blue);
+    background: var(--qc-blue-light);
+    color: var(--qc-blue);
+}
+
+.qc-nav-prev {
+    left: 12px;
+}
+
+.qc-nav-next {
+    right: 12px;
+}
+
+.qc-caption {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 18px;
+    z-index: 3;
+
+    color: #4d5963;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.qc-caption i {
+    margin: 0 6px;
+    color: #aab2b8;
+    font-style: normal;
+}
+
+/* ---------------- view thumbnails ---------------- */
+
+.qc-views {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 8px;
+}
+
+.qc-views button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 12px 4px 10px;
+
+    border: 1px solid var(--qc-line);
+    background: #ffffff;
+    color: var(--qc-grey);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+
+    transition: border-color 0.25s ease, background 0.25s ease, color 0.25s ease;
+}
+
+.qc-views button:hover {
+    border-color: #b8c9d6;
+}
+
+.qc-views button.is-active {
+    border-color: var(--qc-blue);
+    background: var(--qc-blue-light);
+    color: var(--qc-blue);
+}
+
+/* =========================================================
+   SIDE: SUMMARY, PRICE, REQUEST
+========================================================= */
+
+.qc-side {
+    grid-area: side;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-width: 0;
+}
+
+.qc-summary,
+.qc-request {
+    border: 1px solid var(--qc-line);
+    background: #ffffff;
+    padding: 24px;
+}
+
+.qc-summary-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+}
+
+.qc-summary-head h3,
+.qc-request h3 {
+    font-family: "Manrope", sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+}
+
+.qc-summary-head button {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0;
+
+    border: 0;
+    background: transparent;
+    color: var(--qc-blue);
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.qc-summary-head button:hover {
+    color: var(--qc-blue-dark);
+}
+
+.qc-summary dl {
+    display: flex;
+    flex-direction: column;
+}
+
+.qc-summary dl>div {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    padding: 11px 0;
+
+    border-top: 1px solid var(--qc-line);
+    font-size: 13px;
+}
+
+.qc-summary dt {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--qc-grey);
+}
+
+.qc-summary dt svg {
+    color: #9aa7b0;
+}
+
+.qc-summary dd {
+    font-weight: 600;
+    overflow-wrap: anywhere;
+}
+
+.qc-price {
+    padding: 22px 24px;
+    background: var(--qc-surface);
+    border: 1px solid var(--qc-line);
+}
+
+.qc-price>div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    color: var(--qc-ink);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.qc-price svg {
+    color: #9aa7b0;
+}
+
+.qc-price strong {
+    display: block;
+    margin: 12px 0 10px;
+
+    font-family: "Manrope", sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+}
+
+.qc-price p {
+    color: var(--qc-grey);
+    font-size: 11.5px;
+    line-height: 1.6;
+}
+
+/* ---------------- request ---------------- */
+
+.qc-request>div>p,
+.qc-form>p,
+.qc-sent>p {
+    margin: 8px 0 20px;
+
+    color: var(--qc-grey);
+    font-size: 13px;
+    line-height: 1.65;
+}
+
+.qc-cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    padding: 17px 20px;
+
+    border: 0;
+    background: var(--qc-blue);
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+
+    transition: background 0.25s ease, transform 0.3s ease;
+}
+
+.qc-cta:hover:not(:disabled) {
+    background: var(--qc-blue-dark);
+}
+
+.qc-cta:hover:not(:disabled) svg {
+    transform: translate(2px, -2px);
+}
+
+.qc-cta svg {
+    transition: transform 0.25s ease;
+}
+
+.qc-cta:disabled {
+    opacity: 0.75;
+    cursor: progress;
+}
+
+.qc-spin {
+    animation: qc-spin 0.9s linear infinite;
+}
+
+@keyframes qc-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.qc-form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.qc-form>p {
+    margin-bottom: 4px;
+}
+
+.qc-form-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+}
+
+.qc-form-field input,
+.qc-select select {
+    width: 100%;
+    padding: 12px 14px;
+
+    border: 1px solid var(--qc-line);
+    background: #ffffff;
+    color: var(--qc-ink);
+    font-size: 13.5px;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.qc-form-field input::placeholder {
+    color: #aab2b8;
+}
+
+.qc-form-field input:focus,
+.qc-select select:focus {
+    border-color: var(--qc-blue);
+    box-shadow: 0 0 0 3px rgba(0, 102, 179, 0.12);
+}
+
+.qc-form-field.has-error input {
+    border-color: var(--qc-danger);
+}
+
+.qc-field-error {
+    display: block;
+    margin-top: 6px;
+
+    color: var(--qc-danger);
+    font-size: 11.5px;
+    font-weight: 600;
+}
+
+.qc-select {
+    position: relative;
+}
+
+.qc-select select {
+    appearance: none;
+    -webkit-appearance: none;
+    padding-right: 38px;
+}
+
+.qc-select svg {
+    position: absolute;
+    top: 50%;
+    right: 13px;
+    transform: translateY(-50%);
+    color: var(--qc-grey);
+    pointer-events: none;
+}
+
+.qc-error-banner {
+    padding: 11px 14px;
+
+    border: 1px solid rgba(192, 57, 43, 0.35);
+    background: rgba(192, 57, 43, 0.06);
+    color: var(--qc-danger);
+    font-size: 12.5px;
+}
+
+/* honeypot: invisible to people, tempting to bots */
+.qc-hp {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+}
+
+.qc-sent {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.qc-sent svg {
+    margin-bottom: 14px;
+    color: var(--qc-blue);
+}
+
+.qc-link {
+    padding: 0 0 3px;
+
+    border: 0;
+    border-bottom: 1px solid var(--qc-blue);
+    background: transparent;
+    color: var(--qc-blue);
+    font-size: 13px;
+    font-weight: 700;
+}
+
+/* =========================================================
+   FOCUS
+========================================================= */
+
+.quote button:focus-visible,
+.quote select:focus-visible {
+    outline: 2px solid var(--qc-blue);
+    outline-offset: 3px;
+}
+
+/* =========================================================
+   WIDE: three columns like the design (intro | panel | side)
+========================================================= */
+
+@media (min-width: 1560px) {
+    .quote {
+        padding-inline: 56px;
+    }
+
+    .qc-inner {
+        max-width: 1780px;
+        grid-template-columns: 300px minmax(0, 1fr) 360px;
+        grid-template-areas: "intro panel side";
+        row-gap: 0;
+    }
+
+    .qc-intro {
+        display: block;
+    }
+
+    .qc-intro h2 {
+        font-size: clamp(42px, 2.7vw, 54px);
+    }
+
+    .qc-perks {
+        margin-top: 44px;
+    }
+}
+
+/* =========================================================
+   LAPTOP / TABLET
+========================================================= */
+
+@media (max-width: 1180px) {
+    .quote {
+        padding: 84px 32px 90px;
+    }
+
+    .qc-inner {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "intro"
+            "panel"
+            "side";
+        row-gap: 40px;
+    }
+
+    .qc-side {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        align-items: start;
+    }
+
+    .qc-request {
+        grid-row: 1 / span 2;
+        grid-column: 2;
+    }
+}
+
+@media (max-width: 900px) {
+    .qc-intro {
+        display: block;
+    }
+
+    .qc-perks {
+        margin-top: 36px;
+    }
+
+    .qc-panel-body {
+        grid-template-columns: 1fr;
+        padding: 20px;
+    }
+
+    /* the preview comes first so every change is visible straight away */
+    .qc-preview-col {
+        position: static;
+        order: -1;
+    }
+
+    .qc-preview {
+        aspect-ratio: 4 / 4.4;
+    }
+
+    .qc-side {
+        display: flex;
+    }
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+    .quote {
+        padding: 72px 20px 72px;
+    }
+
+    .qc-steps {
+        padding: 20px 12px 16px;
+    }
+
+    .qc-step-dot {
+        width: 32px;
+        height: 32px;
+        font-size: 11px;
+    }
+
+    .qc-step-label {
+        font-size: 8.5px;
+        letter-spacing: 0.1em;
+    }
+
+    .qc-step-track {
+        top: 15px;
+        left: calc(50% + 24px);
+        right: calc(-50% + 24px);
+    }
+
+    .qc-panel-body {
+        padding: 16px;
+        gap: 26px;
+    }
+
+    .qc-tiles-4 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .qc-stage {
+        inset: 58px 8px 70px;
+    }
+
+    .qc-nav {
+        display: none;
+    }
+
+    .qc-views button {
+        padding: 10px 2px 8px;
+        font-size: 8.5px;
+        letter-spacing: 0.04em;
+    }
+
+    .qc-summary,
+    .qc-request {
+        padding: 20px;
+    }
+}
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .qc-tile,
+    .qc-swatch-dot,
+    .qc-step-track i,
+    .qc-backdrop,
+    .qc-fill,
+    .qc-grain {
+        transition: none;
+    }
+
+    .qc-tile:hover,
+    .qc-swatch:hover .qc-swatch-dot {
+        transform: none;
+    }
+
+    .qc-spin {
+        animation: none;
+    }
+}

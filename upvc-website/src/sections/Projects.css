@@ -1,0 +1,291 @@
+/* =========================================================
+   PROJECTS — featured project
+   Dark night-time section between Performance (white) and
+   Quote. Colours are taken from the photo: lit warm stucco
+   and the dusk sky, with GEALAN blue for the accent.
+========================================================= */
+
+.projects {
+    --pj-bg: #101418;
+    --pj-text: #e9edf0;
+    --pj-muted: #a3adb5;
+    --pj-line: rgba(233, 237, 240, 0.16);
+    --pj-blue: #4a9bf7;
+    --pj-glow: 242, 194, 123;
+    /* warm light from the photo, as r, g, b */
+
+    position: relative;
+    width: 100%;
+    padding: 120px 5vw;
+
+    background: var(--pj-bg);
+    color: var(--pj-text);
+
+    overflow: clip;
+}
+
+.projects-inner {
+    width: 100%;
+    max-width: 1300px;
+    margin: 0 auto;
+
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.62fr);
+    gap: 90px;
+    align-items: center;
+}
+
+/* =========================================================
+   COPY
+========================================================= */
+
+.projects-kicker {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    margin-bottom: 36px;
+
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--pj-muted);
+}
+
+.projects-kicker::before {
+    content: "";
+    width: 44px;
+    height: 1px;
+    background: var(--pj-blue);
+}
+
+.projects-title {
+    font-family: "Manrope", "DM Sans", sans-serif;
+    font-size: clamp(38px, 4.4vw, 64px);
+    font-weight: 300;
+    line-height: 1.04;
+    letter-spacing: -0.02em;
+}
+
+.projects-title em {
+    font-style: normal;
+    font-weight: 800;
+    color: var(--pj-blue);
+}
+
+.projects-lead {
+    max-width: 440px;
+    margin-top: 40px;
+
+    font-size: clamp(17px, 1.5vw, 20px);
+    line-height: 1.65;
+    color: var(--pj-muted);
+}
+
+.projects-lead span {
+    color: var(--pj-blue);
+}
+
+/* ---------- benefits ---------- */
+
+.projects-benefits {
+    display: flex;
+    margin-top: 56px;
+    padding: 0;
+    list-style: none;
+}
+
+.projects-benefits li {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+
+    padding: 0 28px;
+
+    font-size: 13px;
+    line-height: 1.4;
+    color: var(--pj-text);
+}
+
+.projects-benefits li+li {
+    border-left: 1px solid var(--pj-line);
+}
+
+.projects-benefits li:first-child {
+    padding-left: 0;
+}
+
+.projects-benefit-icon {
+    display: grid;
+    place-items: center;
+
+    width: 46px;
+    height: 46px;
+
+    border: 1px solid var(--pj-line);
+    border-radius: 50%;
+    color: rgb(var(--pj-glow));
+}
+
+/* ---------- actions ---------- */
+
+.projects-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 18px 32px;
+
+    margin-top: 56px;
+}
+
+.projects-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 16px 28px;
+
+    background: var(--pj-blue);
+    color: #0a1118;
+    border-radius: 999px;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    transition:
+        background 0.3s ease,
+        transform 0.3s ease;
+}
+
+.projects-cta:hover {
+    background: #fff;
+    transform: translateY(-2px);
+}
+
+.projects-link {
+    font-size: 15px;
+    color: var(--pj-muted);
+
+    border-bottom: 1px solid var(--pj-line);
+    padding-bottom: 3px;
+
+    transition:
+        color 0.3s ease,
+        border-color 0.3s ease;
+}
+
+.projects-link:hover {
+    color: var(--pj-text);
+    border-color: var(--pj-text);
+}
+
+.projects-cta:focus-visible,
+.projects-link:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 4px;
+}
+
+/* =========================================================
+   ARCHED IMAGE
+   The glow lives on the figure, not the clipped box, because
+   clip-path would cut a box-shadow off.
+========================================================= */
+
+.projects-figure {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    margin-left: auto;
+}
+
+.projects-figure::before {
+    content: "";
+    position: absolute;
+    inset: -8% -22%;
+    z-index: 0;
+
+    background: radial-gradient(ellipse at 50% 38%,
+            rgba(var(--pj-glow), 0.2),
+            transparent 62%);
+    pointer-events: none;
+}
+
+.projects-arch {
+    position: relative;
+    z-index: 1;
+
+    aspect-ratio: 600 / 800;
+    width: 100%;
+
+    /* semicircle top that follows the window's own arch */
+    border-radius: 50% 50% 0 0 / 20.9% 20.9% 0 0;
+    overflow: hidden;
+}
+
+.projects-arch img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+.projects-figure figcaption {
+    position: relative;
+    z-index: 1;
+
+    margin-top: 18px;
+
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--pj-muted);
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1000px) {
+    .projects {
+        padding: 90px 6vw;
+    }
+
+    .projects-inner {
+        grid-template-columns: 1fr;
+        gap: 64px;
+    }
+
+    .projects-figure {
+        max-width: 420px;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 520px) {
+    .projects-benefits {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .projects-benefits li,
+    .projects-benefits li:first-child {
+        flex-direction: row;
+        align-items: center;
+        padding: 0;
+        border-left: 0;
+    }
+
+    .projects-actions {
+        margin-top: 44px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .projects-cta,
+    .projects-link {
+        transition: none;
+    }
+
+    .projects-cta:hover {
+        transform: none;
+    }
+}
