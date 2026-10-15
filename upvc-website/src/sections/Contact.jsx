@@ -194,7 +194,7 @@ const EMPTY = {
 --------------------------------------------------------- */
 async function submitEnquiry(values) {
   const apiBase = (
-    import.meta.env.BACKEND_API_BASE_URL || "http://localhost:5000"
+    import.meta.env.VITE_API_URL || "https://leading-upvc-api.onrender.com"
   ).replace(/\/$/, "");
   const response = await fetch(`${apiBase}/api/contact`, {
     method: "POST",
