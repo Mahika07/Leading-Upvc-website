@@ -592,7 +592,7 @@
     }
 
     .hero-content h1 {
-        font-size: 57px;
+        font-size: 47px;
     }
 }
 
@@ -640,7 +640,7 @@
 
 
     .hero-content h1 {
-        font-size: 47px;
+        font-size: 37px;
 
         line-height: 0.94;
     }
@@ -710,9 +710,9 @@
   ----------------------------------------- */
 
     .hero-reveal {
-        left: 50%;
 
-        right: auto;
+
+        right: -5%;
 
         top: 68%;
 
@@ -762,9 +762,12 @@
 
 @media (max-width: 420px) {
     .hero-content h1 {
-        font-size: 42px;
+        font-size: 32px;
     }
 
+    .hero-reveal {
+        right: 5%
+    }
 
     .hero-description {
         max-width: 300px;
