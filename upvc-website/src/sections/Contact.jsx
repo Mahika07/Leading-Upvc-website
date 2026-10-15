@@ -189,12 +189,12 @@ const EMPTY = {
 
 /* ---------------------------------------------------------
    Send this enquiry to the custom Node.js email backend.
-   Set VITE_API_URL in the React project's .env if the API
+   Set BACKEND_API_BASE_URL in the React project's .env if the API
    is hosted somewhere other than the local development URL.
 --------------------------------------------------------- */
 async function submitEnquiry(values) {
   const apiBase = (
-    import.meta.env.VITE_API_URL || "http://localhost:5000"
+    import.meta.env.BACKEND_API_BASE_URL || "http://localhost:5000"
   ).replace(/\/$/, "");
   const response = await fetch(`${apiBase}/api/contact`, {
     method: "POST",
