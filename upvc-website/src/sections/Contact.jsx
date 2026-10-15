@@ -48,7 +48,7 @@ const FEATURES = [
    EDIT THESE: your real contact details
 --------------------------------------------------------- */
 const CONTACT_INFO = {
-  phone: "+91 9893690590, +91 9893690590",
+  phone: "+91 9893690590, +91 9993610000, +91 9425306420",
   email: "leadinggears@gmail.com",
   location:
     "Leading Gears India Pvt Ltd, 9B/2, Industrial Area No. 1, Dewas, Madhya Pradesh 455001",
@@ -193,7 +193,9 @@ const EMPTY = {
    is hosted somewhere other than the local development URL.
 --------------------------------------------------------- */
 async function submitEnquiry(values) {
-  const apiBase = (import.meta.env.VITE_API_URL || "http://localhost:5000").replace(/\/$/, "");
+  const apiBase = (
+    import.meta.env.VITE_API_URL || "http://localhost:5000"
+  ).replace(/\/$/, "");
   const response = await fetch(`${apiBase}/api/contact`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -202,7 +204,9 @@ async function submitEnquiry(values) {
 
   const result = await response.json().catch(() => ({}));
   if (!response.ok) {
-    throw new Error(result.message || "We couldn't send your enquiry. Please try again.");
+    throw new Error(
+      result.message || "We couldn't send your enquiry. Please try again.",
+    );
   }
   return result;
 }
@@ -288,7 +292,9 @@ export default function Contact() {
       setStatus("sent");
     } catch (submitError) {
       setStatus("idle");
-      setError(submitError.message || "Something went wrong. Please try again.");
+      setError(
+        submitError.message || "Something went wrong. Please try again.",
+      );
     }
   };
 
