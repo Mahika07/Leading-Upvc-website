@@ -31,7 +31,7 @@ import "./Quote.css";
 /* =========================================================
    SETTINGS — Web3Forms direct submission
 ========================================================= */
-const QUOTE_ENDPOINT = "https://api.web3forms.com/submit";
+const QUOTE_ENDPOINT = "/api/submit-enquiry";
 
 const SIZE_LIMITS = {
   width: { min: 500, max: 4000 },
@@ -1100,10 +1100,7 @@ export default function Quote() {
 
     setStatus("sending");
 
-    const accessKey = import.meta.env.CONTACT_WEB3FORMS_ACCESS_KEY;
-
     const payload = {
-      access_key: accessKey,
       subject: "New Window Quote Request — Leading UPVC",
       from_name: "Leading UPVC Website",
       name: values.name.trim(),

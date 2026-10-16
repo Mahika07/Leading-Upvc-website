@@ -194,20 +194,13 @@ const EMPTY = {
 --------------------------------------------------------- */
 
 async function submitEnquiry(values) {
-  const accessKey = import.meta.env.CONTACT_WEB3FORMS_ACCESS_KEY;
-
-  if (!accessKey) {
-    throw new Error("Form configuration is missing. Please try again later.");
-  }
-
-  const response = await fetch("https://api.web3forms.com/submit", {
+  const response = await fetch("/api/submit-enquiry", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
     },
     body: JSON.stringify({
-      access_key: accessKey,
       subject: "New Contact Enquiry — Leading UPVC",
       from_name: "Leading UPVC Website",
       name: values.name,
@@ -223,13 +216,12 @@ async function submitEnquiry(values) {
 
   if (!response.ok || !result.success) {
     throw new Error(
-      result.message || "We couldn't send your enquiry. Please try again."
+      result.message || "We couldn't send your enquiry. Please try again.",
     );
   }
 
   return result;
 }
-
 
 function validate(v) {
   if (!v.name.trim()) return "Please enter your name.";
