@@ -29,22 +29,9 @@ import {
 import "./Quote.css";
 
 /* =========================================================
-   SETTINGS
+   SETTINGS — Web3Forms direct submission
 ========================================================= */
-
-/*
- * Quote API endpoint.
- * Local development: Node backend at http://localhost:5000
- * Production: set VITE_API_BASE_URL to your deployed backend base URL.
- *
- * Example production .env:
- * VITE_API_BASE_URL=https://your-api-domain.com
- */
-const API_BASE_URL = (
-  import.meta.env.VITE_API_URL || "https://leading-upvc-api.onrender.com"
-).replace(/\/$/, "");
-
-const QUOTE_ENDPOINT = `${API_BASE_URL}/api/quote`;
+const QUOTE_ENDPOINT = "https://api.web3forms.com/submit";
 
 const SIZE_LIMITS = {
   width: { min: 500, max: 4000 },
@@ -1113,36 +1100,34 @@ export default function Quote() {
 
     setStatus("sending");
 
+    const accessKey = import.meta.env.CONTACT_WEB3FORMS_ACCESS_KEY;
+
     const payload = {
-      // Top-level fields for backend validation
+      access_key: accessKey,
+      subject: "New Window Quote Request — Leading UPVC",
+      from_name: "Leading UPVC Website",
       name: values.name.trim(),
       phone: values.phone.trim(),
       email: values.email.trim(),
       city: values.city.trim(),
-      projectType: values.type,
-
-      // Keep the nested contact object too
-      contact: {
-        name: values.name.trim(),
-        phone: values.phone.trim(),
-        email: values.email.trim(),
-        city: values.city.trim(),
-        projectType: values.type,
-      },
-
-      configuration: {
-        system: system.label,
-        colour: colour.id === "custom" ? `Custom (${customHex})` : colour.name,
-        configuration: config.label,
-        widthMm: width,
-        heightMm: height,
-        quantity: qty,
-      },
-
-      sentAt: new Date().toISOString(),
+      project_type: values.type,
+      window_system: system.label,
+      window_colour:
+        colour.id === "custom" ? `Custom (${customHex})` : colour.name,
+      window_configuration: config.label,
+      width_mm: width,
+      height_mm: height,
+      quantity: qty,
+      submitted_at: new Date().toISOString(),
     };
 
     try {
+      if (!accessKey) {
+        throw new Error(
+          "Missing CONTACT_WEB3FORMS_ACCESS_KEY environment variable.",
+        );
+      }
+
       const response = await fetch(QUOTE_ENDPOINT, {
         method: "POST",
         headers: {
@@ -1152,19 +1137,13 @@ export default function Quote() {
         body: JSON.stringify(payload),
       });
 
-      let responseBody = null;
-      try {
-        responseBody = await response.json();
-      } catch {
-        // The API may return an empty or non-JSON response.
-      }
+      const responseBody = await response.json().catch(() => ({}));
 
-      if (!response.ok) {
-        const message =
-          responseBody?.message ||
-          responseBody?.error ||
-          `The server returned HTTP ${response.status}.`;
-        throw new Error(message);
+      if (!response.ok || !responseBody.success) {
+        throw new Error(
+          responseBody.message ||
+            `Web3Forms request failed (HTTP ${response.status}).`,
+        );
       }
 
       setStatus("sent");

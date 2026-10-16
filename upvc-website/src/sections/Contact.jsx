@@ -192,24 +192,44 @@ const EMPTY = {
    Set BACKEND_API_BASE_URL in the React project's .env if the API
    is hosted somewhere other than the local development URL.
 --------------------------------------------------------- */
+
 async function submitEnquiry(values) {
-  const apiBase = (
-    import.meta.env.VITE_API_URL || "https://leading-upvc-api.onrender.com"
-  ).replace(/\/$/, "");
-  const response = await fetch(`${apiBase}/api/contact`, {
+  const accessKey = import.meta.env.CONTACT_WEB3FORMS_ACCESS_KEY;
+
+  if (!accessKey) {
+    throw new Error("Form configuration is missing. Please try again later.");
+  }
+
+  const response = await fetch("https://api.web3forms.com/submit", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(values),
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+    body: JSON.stringify({
+      access_key: accessKey,
+      subject: "New Contact Enquiry — Leading UPVC",
+      from_name: "Leading UPVC Website",
+      name: values.name,
+      phone: values.phone,
+      email: values.email,
+      city: values.city,
+      project_type: values.type,
+      message: values.message,
+    }),
   });
 
-  const result = await response.json().catch(() => ({}));
-  if (!response.ok) {
+  const result = await response.json();
+
+  if (!response.ok || !result.success) {
     throw new Error(
-      result.message || "We couldn't send your enquiry. Please try again.",
+      result.message || "We couldn't send your enquiry. Please try again."
     );
   }
+
   return result;
 }
+
 
 function validate(v) {
   if (!v.name.trim()) return "Please enter your name.";
