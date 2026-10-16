@@ -194,29 +194,32 @@ const EMPTY = {
 --------------------------------------------------------- */
 
 async function submitEnquiry(values) {
-  const response = await fetch("/api/submit-enquiry", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
+  const response = await fetch(
+    "https://formsubmit.co/ajax/leadinggears@gmail.com",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        name: values.name,
+        phone: values.phone,
+        email: values.email,
+        city: values.city,
+        project_type: values.type,
+        message: values.message,
+        _subject: "New Contact Enquiry — Leading UPVC",
+        _captcha: "true",
+      }),
     },
-    body: JSON.stringify({
-      subject: "New Contact Enquiry — Leading UPVC",
-      from_name: "Leading UPVC Website",
-      name: values.name,
-      phone: values.phone,
-      email: values.email,
-      city: values.city,
-      project_type: values.type,
-      message: values.message,
-    }),
-  });
+  );
 
   const result = await response.json();
 
-  if (!response.ok || !result.success) {
+  if (!response.ok || result.success !== "true") {
     throw new Error(
-      result.message || "We couldn't send your enquiry. Please try again.",
+      result.message || "Unable to send your enquiry. Please try again.",
     );
   }
 

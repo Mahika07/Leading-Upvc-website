@@ -29,9 +29,9 @@ import {
 import "./Quote.css";
 
 /* =========================================================
-   SETTINGS — Web3Forms direct submission
+   SETTINGS — FormSubmit AJAX
 ========================================================= */
-const QUOTE_ENDPOINT = "/api/submit-enquiry";
+const QUOTE_ENDPOINT = "https://formsubmit.co/ajax/leadinggears@gmail.com";
 
 const SIZE_LIMITS = {
   width: { min: 500, max: 4000 },
@@ -1119,33 +1119,34 @@ export default function Quote() {
     };
 
     try {
-      if (!accessKey) {
-        throw new Error(
-          "Missing CONTACT_WEB3FORMS_ACCESS_KEY environment variable.",
-        );
-      }
-
       const response = await fetch(QUOTE_ENDPOINT, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
         },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({
+          ...payload,
+          _subject: "New Window Quote Request — Leading UPVC",
+          _captcha: "true",
+        }),
       });
 
       const responseBody = await response.json().catch(() => ({}));
+      const succeeded =
+        response.ok &&
+        (responseBody.success === "true" || responseBody.success === true);
 
-      if (!response.ok || !responseBody.success) {
+      if (!succeeded) {
         throw new Error(
           responseBody.message ||
-            `Web3Forms request failed (HTTP ${response.status}).`,
+            `FormSubmit request failed (HTTP ${response.status}).`,
         );
       }
 
       setStatus("sent");
     } catch (error) {
-      console.error("[Quote] send failed", error);
+      console.error("[Quote] FormSubmit send failed:", error);
       setStatus("error");
     }
   };
