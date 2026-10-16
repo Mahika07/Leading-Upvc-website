@@ -46,9 +46,11 @@ const FEATURES = [
 
 /* ---------------------------------------------------------
    EDIT THESE: your real contact details
+   Each phone number is its own entry, so each one gets its
+   own tap-to-call link.
 --------------------------------------------------------- */
 const CONTACT_INFO = {
-  phone: "+91 9893690590, +91 9993610000, +91 9425306420",
+  phones: ["+91 9893690590", "+91 9993610000", "+91 9425306420"],
   email: "leadinggears@gmail.com",
   location:
     "Leading Gears India Pvt Ltd, 9B/2, Industrial Area No. 1, Dewas, Madhya Pradesh 455001",
@@ -58,8 +60,11 @@ const DETAILS = [
   {
     icon: Phone,
     label: "Call us",
-    value: CONTACT_INFO.phone,
-    href: `tel:${CONTACT_INFO.phone.replace(/[^\d+]/g, "")}`,
+    /* several links, one per number */
+    links: CONTACT_INFO.phones.map((p) => ({
+      text: p,
+      href: `tel:${p.replace(/[^\d+]/g, "")}`,
+    })),
   },
   {
     icon: Mail,
@@ -390,25 +395,55 @@ export default function Contact() {
                 {DETAILS.map((d, i) => {
                   const Icon = d.icon;
 
+                  const body = (
+                    <>
+                      <span className="contact-detail-icon">
+                        <Icon size={17} strokeWidth={1.6} />
+                      </span>
+
+                      <span className="contact-detail-text">
+                        <small>{d.label}</small>
+
+                        {d.links ? (
+                          /* one separate tap-to-call link per number */
+                          <span className="contact-phones">
+                            {d.links.map((l, n) => (
+                              <span key={l.href} className="contact-phone-item">
+                                <a href={l.href} className="contact-phone">
+                                  {l.text}
+                                </a>
+                                {n < d.links.length - 1 && (
+                                  <span className="contact-sep">,</span>
+                                )}
+                              </span>
+                            ))}
+                          </span>
+                        ) : (
+                          <strong>{d.value}</strong>
+                        )}
+                      </span>
+                    </>
+                  );
+
                   return (
                     <motion.li
                       key={d.label}
                       {...fade(showText, 1.1 + i * 0.1, 16)}
                     >
-                      <a
-                        href={d.href}
-                        {...(d.external
-                          ? { target: "_blank", rel: "noopener noreferrer" }
-                          : {})}
-                      >
-                        <span className="contact-detail-icon">
-                          <Icon size={17} strokeWidth={1.6} />
-                        </span>
-                        <span className="contact-detail-text">
-                          <small>{d.label}</small>
-                          <strong>{d.value}</strong>
-                        </span>
-                      </a>
+                      {d.links ? (
+                        /* not an <a>: it contains the separate phone links */
+                        <div className="contact-detail-row">{body}</div>
+                      ) : (
+                        <a
+                          className="contact-detail-row"
+                          href={d.href}
+                          {...(d.external
+                            ? { target: "_blank", rel: "noopener noreferrer" }
+                            : {})}
+                        >
+                          {body}
+                        </a>
+                      )}
                     </motion.li>
                   );
                 })}

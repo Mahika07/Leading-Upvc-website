@@ -267,17 +267,41 @@
 ========================================================= */
 
 .hero-eyebrow {
-    margin: 0 0 24px;
+    position: relative;
+    display: inline-block;
+    max-width: 100%;
+    box-sizing: border-box;
 
-    font-size: 20px;
+    margin: 0 0 26px;
+    padding: 12px 18px 12px 20px;
 
-    font-weight: 700;
-
-    letter-spacing: 0.18em;
-
+    font-size: clamp(14px, 1.35vw, 23px);
+    font-weight: 800;
+    line-height: 1.4;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
+    text-wrap: balance;
 
     color: #0066b3;
+
+    background: linear-gradient(90deg,
+            rgba(0, 102, 179, 0.14) 0%,
+            rgba(0, 102, 179, 0.04) 100%);
+
+    border-left: 4px solid #0066b3;
+    border-radius: 0 12px 12px 0;
+
+    box-shadow: 0 10px 30px rgba(0, 102, 179, 0.10);
+}
+
+.hero-eyebrow::after {
+    content: "";
+    position: absolute;
+    left: 20px;
+    bottom: 0;
+    width: 56px;
+    height: 2px;
+    background: #0066b3;
 }
 
 
@@ -293,7 +317,7 @@
     font-family: "Manrope", sans-serif;
 
     font-size: clamp(52px,
-            4.8vw,
+            4.2vw,
             82px);
 
     line-height: 0.91;
@@ -467,21 +491,24 @@
 
 .hero-reveal {
     position: absolute;
-
     z-index: 7;
 
-    right: 12%;
+    /* same box as .door-area, so the text always sits
+       in the middle of the opening doors */
+    top: 0;
+    right: 0;
+    width: 55%;
+    height: 100%;
+    box-sizing: border-box;
+    padding: 0 clamp(16px, 4vw, 64px) 8vh;
 
-    top: 30%;
-
-    width: 500px;
-
-    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 
     text-align: center;
-
     color: black;
-
     pointer-events: none;
 }
 
@@ -492,18 +519,12 @@
 
 .hero-reveal span {
     display: block;
+    margin-bottom: clamp(12px, 2vh, 20px);
 
-    margin-bottom: 20px;
-
-    font-size: 9px;
-
+    font-size: clamp(9px, 0.85vw, 12px);
     font-weight: 700;
-
     letter-spacing: 0.2em;
-
     color: black;
-
-    opacity: 1;
 }
 
 
@@ -516,8 +537,8 @@
 
     font-family: "Manrope", sans-serif;
 
-    font-size: clamp(44px,
-            5vw,
+    font-size: clamp(34px,
+            4.6vw,
             70px);
 
     line-height: 0.93;
@@ -632,11 +653,6 @@
     }
 
 
-    .hero-eyebrow {
-        margin-bottom: 18px;
-
-        font-size: 10px;
-    }
 
 
     .hero-content h1 {
@@ -709,30 +725,10 @@
      REVEAL
   ----------------------------------------- */
 
-    .hero-reveal {
 
 
-        right: -5%;
-
-        top: 68%;
-
-        width: 90%;
-
-        transform:
-            translateX(-50%) translateY(-50%);
-    }
 
 
-    .hero-reveal h2 {
-        font-size: 43px;
-    }
-
-
-    .hero-reveal span {
-        font-size: 8px;
-
-        letter-spacing: 0.15em;
-    }
 
 
     /* -----------------------------------------
@@ -765,9 +761,6 @@
         font-size: 32px;
     }
 
-    .hero-reveal {
-        right: 5%
-    }
 
     .hero-description {
         max-width: 300px;
@@ -786,5 +779,56 @@
 
     .hero-text-link {
         font-size: 10px;
+    }
+}
+
+/* =========================================================
+   RESPONSIVE: EYEBROW + REVEAL
+========================================================= */
+
+@media (max-width: 1000px) {
+    .hero-eyebrow {
+        font-size: 13px;
+        letter-spacing: 0.08em;
+        padding: 10px 14px 10px 16px;
+    }
+
+    .hero-reveal h2 {
+        font-size: clamp(30px, 5.6vw, 48px);
+    }
+}
+
+@media (max-width: 700px) {
+    .hero-eyebrow {
+        margin-bottom: 18px;
+        font-size: 12px;
+        letter-spacing: 0.07em;
+    }
+
+    /* same box as the mobile .door-area (bottom 45%, full width) */
+    .hero-reveal {
+        top: auto;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        width: 100%;
+        height: 45%;
+        padding: 0 20px;
+    }
+
+    .hero-reveal h2 {
+        font-size: clamp(30px, 9.5vw, 43px);
+    }
+
+    .hero-reveal span {
+        font-size: 8px;
+        letter-spacing: 0.15em;
+    }
+}
+
+@media (max-width: 420px) {
+    .hero-eyebrow {
+        font-size: 11px;
+        padding: 9px 12px 9px 14px;
     }
 }

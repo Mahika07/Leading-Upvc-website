@@ -217,8 +217,8 @@
 
 .contact-details {
     display: flex;
-    flex-wrap: wrap;
-    gap: 18px 34px;
+    flex-direction: column;
+    gap: 18px;
     margin-top: 40px;
     padding-top: 28px;
 
@@ -226,11 +226,17 @@
     list-style: none;
 }
 
-.contact-details a {
+.contact-details li {
+    min-width: 0;
+}
+
+/* shared by the <a> rows (email, address) and the <div> row (phones) */
+.contact-details .contact-detail-row {
     display: flex;
-    align-items: center;
-    gap: 12px;
+    align-items: flex-start;
+    gap: 14px;
     color: var(--ct-ink);
+    text-decoration: none;
 }
 
 .contact-detail-icon {
@@ -253,7 +259,8 @@
 .contact-detail-text {
     display: flex;
     flex-direction: column;
-    gap: 3px;
+    gap: 4px;
+    min-width: 0;
 }
 
 .contact-detail-text small {
@@ -267,17 +274,59 @@
 .contact-detail-text strong {
     font-size: 15px;
     font-weight: 700;
+    line-height: 1.45;
     letter-spacing: -0.01em;
     transition: color 0.25s ease;
 }
 
-.contact-details a:hover .contact-detail-icon {
+/* ---- phone numbers: each one is its own tap-to-call link ---- */
+
+.contact-phones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 10px;
+}
+
+.contact-phone-item {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 2px;
+    white-space: nowrap;
+}
+
+.contact-phone {
+    color: var(--ct-blue);
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.45;
+    letter-spacing: -0.01em;
+    text-decoration: none;
+
+    transition: color 0.25s ease;
+}
+
+.contact-phone:hover,
+.contact-phone:focus-visible {
+    color: var(--ct-blue-dark);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+.contact-sep {
+    color: var(--ct-blue);
+    font-weight: 700;
+}
+
+/* ---- hover (links only) ---- */
+
+.contact-details a.contact-detail-row:hover .contact-detail-icon,
+.contact-details .contact-detail-row:hover .contact-detail-icon {
     border-color: var(--ct-blue);
     background: var(--ct-blue);
     color: #fff;
 }
 
-.contact-details a:hover strong {
+.contact-details a.contact-detail-row:hover strong {
     color: var(--ct-blue);
 }
 
@@ -706,10 +755,6 @@
                 rgba(255, 255, 255, 0.55) 100%);
     }
 
-    .contact-details {
-        flex-direction: column;
-    }
-
     .contact-features {
         grid-template-columns: 1fr;
         gap: 18px;
@@ -753,6 +798,29 @@
     .contact-legal {
         flex-direction: column;
         gap: 8px;
+    }
+}
+
+/* phones: one number per line so each is easy to tap */
+@media (max-width: 600px) {
+    .contact-phones {
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .contact-sep {
+        display: none;
+    }
+
+    .contact-phone,
+    .contact-detail-text strong {
+        font-size: 14px;
+    }
+
+    .contact-phone {
+        display: inline-block;
+        padding: 4px 0;
+        /* bigger tap target */
     }
 }
 

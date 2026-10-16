@@ -136,7 +136,6 @@ const baseColours = [
   { id: "golden-oak", name: "Golden Oak", hex: "#a9692b", finish: "wood" },
   { id: "walnut", name: "Walnut", hex: "#4c3426", finish: "wood" },
   { id: "mahogany", name: "Mahogany", hex: "#552620", finish: "wood" },
-  { id: "custom", name: "Custom", hex: "#6f8fa8", finish: "solid" },
 ];
 
 const projectTypes = [
