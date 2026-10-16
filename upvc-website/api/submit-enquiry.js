@@ -2,7 +2,10 @@
 export default async function handler(req, res) {
     if (req.method !== "POST") {
         res.setHeader("Allow", "POST");
-        return res.status(405).json({ success: false, message: "Method not allowed" });
+        return res.status(405).json({
+            success: false,
+            message: "Method not allowed",
+        });
     }
 
     const accessKey = process.env.CONTACT_WEB3FORMS_ACCESS_KEY;
@@ -10,7 +13,7 @@ export default async function handler(req, res) {
     if (!accessKey) {
         return res.status(500).json({
             success: false,
-            message: "Form configuration is missing.",
+            message: "CONTACT_WEB3FORMS_ACCESS_KEY is missing in Vercel.",
         });
     }
 
@@ -26,7 +29,7 @@ export default async function handler(req, res) {
 
         const { access_key, ...formData } = data;
 
-        const response = await fetch("https://api.web3forms.com/submit", {
+        const upstream = await fetch("https://api.web3forms.com/submit", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -38,12 +41,30 @@ export default async function handler(req, res) {
             }),
         });
 
-        const result = await response.json();
+        const raw = await upstream.text();
 
-        if (!response.ok || !result.success) {
+        let result;
+        try {
+            result = JSON.parse(raw);
+        } catch {
+            console.error(
+                "Web3Forms returned non-JSON:",
+                upstream.status,
+                raw.slice(0, 300)
+            );
+
             return res.status(502).json({
                 success: false,
-                message: result.message || "Unable to send your enquiry.",
+                message: `Web3Forms returned an unexpected response (HTTP ${upstream.status}). Check Vercel logs.`,
+            });
+        }
+
+        if (!upstream.ok || !result.success) {
+            console.error("Web3Forms rejected enquiry:", upstream.status, result);
+
+            return res.status(502).json({
+                success: false,
+                message: result.message || "Web3Forms rejected the enquiry.",
             });
         }
 
@@ -53,7 +74,7 @@ export default async function handler(req, res) {
 
         return res.status(502).json({
             success: false,
-            message: "Unable to send your enquiry. Please try again.",
+            message: "Unable to contact the enquiry service.",
         });
     }
 }
