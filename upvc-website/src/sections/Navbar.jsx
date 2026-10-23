@@ -352,7 +352,7 @@ export default function Navbar() {
             onClick={(e) => goTo(e, "#top")}
             aria-label="GEALAN, back to top"
           >
-            <strong>LEADING GEARS</strong>
+            <strong>Leading Gears India Pvt Ltd</strong>
             <i />
             <span>
               GERMAN
