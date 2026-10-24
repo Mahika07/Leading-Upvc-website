@@ -866,6 +866,7 @@ export default function Quote() {
   const groupRefs = useRef({});
   const panelRef = useRef(null);
   const nameRef = useRef(null);
+  const requestRef = useRef(null);
   const customRef = useRef(null);
 
   /* ---------- the configuration ---------- */
@@ -1047,8 +1048,14 @@ export default function Quote() {
     setFormOpen(true);
 
     window.setTimeout(
-      () => nameRef.current?.focus({ preventScroll: true }),
-      reduceMotion ? 0 : 450,
+      () => {
+        requestRef.current?.scrollIntoView({
+          behavior: reduceMotion ? "auto" : "smooth",
+          block: "start",
+        });
+        nameRef.current?.focus({ preventScroll: true });
+      },
+      reduceMotion ? 0 : 250,
     );
   };
 
@@ -1619,8 +1626,88 @@ export default function Quote() {
             </dl>
           </div>
 
+          {/* ---------------- optional attachment step ---------------- */}
+          <div className="qc-attachment-card">
+            <div className="qc-upload-field">
+              <label htmlFor="qc-attachment">
+                Attach a photo or PDF (optional)
+              </label>
+              <p className="qc-upload-help">
+                Upload a photo of your opening, drawing, or PDF plan. JPG, PNG,
+                WEBP or PDF, up to 8 MB.
+              </p>
+              <input
+                id="qc-attachment"
+                className="qc-upload-input"
+                type="file"
+                accept=".pdf,.jpg,.jpeg,.png,.webp,application/pdf,image/jpeg,image/png,image/webp"
+                onChange={(e) => {
+                  const file = e.target.files?.[0] || null;
+                  setAttachment(file);
+                  setAttachmentError("");
+                  if (file && file.size > 8 * 1024 * 1024) {
+                    setAttachmentError(
+                      "File is too large. Maximum size is 8 MB.",
+                    );
+                  }
+                }}
+                aria-describedby="qc-attachment-help qc-attachment-error"
+              />
+              {attachment && (
+                <div className="qc-upload-selected">
+                  <Paperclip size={15} aria-hidden="true" />
+                  <span title={attachment.name}>{attachment.name}</span>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setAttachment(null);
+                      setAttachmentError("");
+                      const input = document.getElementById("qc-attachment");
+                      if (input) input.value = "";
+                    }}
+                    aria-label="Remove attachment"
+                  >
+                    <X size={15} />
+                  </button>
+                </div>
+              )}
+              <span id="qc-attachment-help" className="qc-upload-help-small">
+                {attachment
+                  ? "Your file is ready and will be sent with your quote request."
+                  : "You can also continue without an attachment."}
+              </span>
+              {attachmentError && (
+                <span
+                  id="qc-attachment-error"
+                  className="qc-field-error"
+                  role="alert"
+                >
+                  {attachmentError}
+                </span>
+              )}
+              <button
+                type="button"
+                className="qc-cta qc-upload-continue"
+                onClick={() => {
+                  if (attachment && attachment.size > 8 * 1024 * 1024) {
+                    setAttachmentError(
+                      "File is too large. Maximum size is 8 MB.",
+                    );
+                    return;
+                  }
+                  openForm();
+                }}
+              >
+                {attachment
+                  ? "SUBMIT & REQUEST A QUOTE"
+                  : "SKIP UPLOAD & REQUEST A QUOTE"}
+                <ArrowUpRight size={17} />
+              </button>
+            </div>
+          </div>
+
           {/* ---------------- request ---------------- */}
-          <div className="qc-request">
+          <div className="qc-request" ref={requestRef}>
             <AnimatePresence mode="wait" initial={false}>
               {!formOpen && (
                 <motion.div
@@ -1750,67 +1837,6 @@ export default function Quote() {
                       <ChevronDown size={16} aria-hidden="true" />
                     </div>
                   </FormField>
-
-                  <div className="qc-upload-field">
-                    <label htmlFor="qc-attachment">
-                      Attach a photo or PDF (optional)
-                    </label>
-                    <p className="qc-upload-help">
-                      Upload a photo of your opening, drawing, or PDF plan. JPG,
-                      PNG, WEBP or PDF, up to 8 MB.
-                    </p>
-                    <input
-                      id="qc-attachment"
-                      className="qc-upload-input"
-                      type="file"
-                      accept=".pdf,.jpg,.jpeg,.png,.webp,application/pdf,image/jpeg,image/png,image/webp"
-                      onChange={(e) => {
-                        const file = e.target.files?.[0] || null;
-                        setAttachment(file);
-                        setAttachmentError("");
-                        if (file && file.size > 8 * 1024 * 1024) {
-                          setAttachmentError(
-                            "File is too large. Maximum size is 8 MB.",
-                          );
-                        }
-                      }}
-                      aria-describedby="qc-attachment-help qc-attachment-error"
-                    />
-                    {attachment && (
-                      <div className="qc-upload-selected">
-                        <Paperclip size={15} aria-hidden="true" />
-                        <span title={attachment.name}>{attachment.name}</span>
-                        <button
-                          type="button"
-                          onClick={() => {
-                            setAttachment(null);
-                            setAttachmentError("");
-                            const input =
-                              document.getElementById("qc-attachment");
-                            if (input) input.value = "";
-                          }}
-                          aria-label="Remove attachment"
-                        >
-                          <X size={15} />
-                        </button>
-                      </div>
-                    )}
-                    <span
-                      id="qc-attachment-help"
-                      className="qc-upload-help-small"
-                    >
-                      Your attachment will be sent with the quote request.
-                    </span>
-                    {attachmentError && (
-                      <span
-                        id="qc-attachment-error"
-                        className="qc-field-error"
-                        role="alert"
-                      >
-                        {attachmentError}
-                      </span>
-                    )}
-                  </div>
 
                   {status === "error" && (
                     <p className="qc-error-banner" role="alert">
