@@ -1112,7 +1112,8 @@ export default function Quote() {
       ];
       const allowedExtensions = /\\.(pdf|jpe?g|png|webp)$/i;
       if (
-        (!allowedTypes.includes(attachment.type) && !allowedExtensions.test(attachment.name)) ||
+        (!allowedTypes.includes(attachment.type) &&
+          !allowedExtensions.test(attachment.name)) ||
         attachment.size > 8 * 1024 * 1024
       ) {
         setAttachmentError("Choose a JPG, PNG, WEBP or PDF file up to 8 MB.");
@@ -1149,7 +1150,8 @@ export default function Quote() {
       Object.entries(payload).forEach(([key, value]) => {
         formData.append(key, String(value));
       });
-      if (attachment) formData.append("attachment", attachment, attachment.name);
+      if (attachment)
+        formData.append("attachment", attachment, attachment.name);
 
       const response = await fetch(QUOTE_ENDPOINT, {
         method: "POST",
@@ -1750,9 +1752,12 @@ export default function Quote() {
                   </FormField>
 
                   <div className="qc-upload-field">
-                    <label htmlFor="qc-attachment">Attach a photo or PDF (optional)</label>
+                    <label htmlFor="qc-attachment">
+                      Attach a photo or PDF (optional)
+                    </label>
                     <p className="qc-upload-help">
-                      Upload a photo of your opening, drawing, or PDF plan. JPG, PNG, WEBP or PDF, up to 8 MB.
+                      Upload a photo of your opening, drawing, or PDF plan. JPG,
+                      PNG, WEBP or PDF, up to 8 MB.
                     </p>
                     <input
                       id="qc-attachment"
@@ -1764,7 +1769,9 @@ export default function Quote() {
                         setAttachment(file);
                         setAttachmentError("");
                         if (file && file.size > 8 * 1024 * 1024) {
-                          setAttachmentError("File is too large. Maximum size is 8 MB.");
+                          setAttachmentError(
+                            "File is too large. Maximum size is 8 MB.",
+                          );
                         }
                       }}
                       aria-describedby="qc-attachment-help qc-attachment-error"
@@ -1778,7 +1785,8 @@ export default function Quote() {
                           onClick={() => {
                             setAttachment(null);
                             setAttachmentError("");
-                            const input = document.getElementById("qc-attachment");
+                            const input =
+                              document.getElementById("qc-attachment");
                             if (input) input.value = "";
                           }}
                           aria-label="Remove attachment"
@@ -1787,11 +1795,18 @@ export default function Quote() {
                         </button>
                       </div>
                     )}
-                    <span id="qc-attachment-help" className="qc-upload-help-small">
+                    <span
+                      id="qc-attachment-help"
+                      className="qc-upload-help-small"
+                    >
                       Your attachment will be sent with the quote request.
                     </span>
                     {attachmentError && (
-                      <span id="qc-attachment-error" className="qc-field-error" role="alert">
+                      <span
+                        id="qc-attachment-error"
+                        className="qc-field-error"
+                        role="alert"
+                      >
                         {attachmentError}
                       </span>
                     )}

@@ -1042,7 +1042,7 @@
     min-width: 0;
 }
 
-.qc-upload-field > label {
+.qc-upload-field>label {
     color: var(--qc-ink);
     font-size: 12px;
     font-weight: 700;
@@ -1089,7 +1089,7 @@
     font-size: 12px;
 }
 
-.qc-upload-selected > span {
+.qc-upload-selected>span {
     flex: 1;
     min-width: 0;
     overflow: hidden;
@@ -1097,7 +1097,7 @@
     white-space: nowrap;
 }
 
-.qc-upload-selected > button {
+.qc-upload-selected>button {
     display: grid;
     place-items: center;
     flex-shrink: 0;
@@ -1109,7 +1109,7 @@
     cursor: pointer;
 }
 
-.qc-upload-selected > button:hover {
+.qc-upload-selected>button:hover {
     color: var(--qc-danger);
 }
 
@@ -1332,5 +1332,37 @@
 
     .qc-spin {
         animation: none;
+    }
+}
+
+/* Upload step sits between the configuration summary and the quote form. */
+.qc-attachment-card {
+    margin-top: 18px;
+    padding: 22px;
+    border: 1px solid var(--qc-line);
+    background: #ffffff;
+}
+
+.qc-attachment-card .qc-upload-field>label {
+    font-size: 15px;
+}
+
+.qc-attachment-card .qc-upload-help,
+.qc-attachment-card .qc-upload-help-small {
+    font-size: 13px;
+}
+
+.qc-attachment-card .qc-upload-input {
+    font-size: 13px;
+}
+
+.qc-upload-continue {
+    margin-top: 10px;
+    width: 100%;
+}
+
+@media (max-width: 560px) {
+    .qc-attachment-card {
+        padding: 17px;
     }
 }
