@@ -24,6 +24,8 @@ import {
   Ruler,
   Scan,
   Maximize2,
+  Paperclip,
+  X,
 } from "lucide-react";
 
 import "./Quote.css";
@@ -902,6 +904,8 @@ export default function Quote() {
     company: "",
   });
   const [errors, setErrors] = useState({});
+  const [attachment, setAttachment] = useState(null);
+  const [attachmentError, setAttachmentError] = useState("");
 
   const system = systems.find((item) => item.id === systemId);
   const config = system.configs[configIndex];
@@ -1067,6 +1071,8 @@ export default function Quote() {
       company: "",
     });
     setErrors({});
+    setAttachment(null);
+    setAttachmentError("");
   };
 
   /* ---------- form ---------- */
@@ -1097,6 +1103,23 @@ export default function Quote() {
     if (values.company) return; // honeypot: real people leave this empty
     if (!validate()) return;
 
+    if (attachment) {
+      const allowedTypes = [
+        "application/pdf",
+        "image/jpeg",
+        "image/png",
+        "image/webp",
+      ];
+      const allowedExtensions = /\\.(pdf|jpe?g|png|webp)$/i;
+      if (
+        (!allowedTypes.includes(attachment.type) && !allowedExtensions.test(attachment.name)) ||
+        attachment.size > 8 * 1024 * 1024
+      ) {
+        setAttachmentError("Choose a JPG, PNG, WEBP or PDF file up to 8 MB.");
+        return;
+      }
+    }
+
     setStatus("sending");
 
     const payload = {
@@ -1115,20 +1138,23 @@ export default function Quote() {
       height_mm: height,
       quantity: qty,
       submitted_at: new Date().toISOString(),
+      _subject: "New Window Quote Request — Leading UPVC",
+      _captcha: "true",
     };
 
     try {
+      // FormData is required to send the actual file bytes.
+      // Do not set Content-Type manually; the browser adds the multipart boundary.
+      const formData = new FormData();
+      Object.entries(payload).forEach(([key, value]) => {
+        formData.append(key, String(value));
+      });
+      if (attachment) formData.append("attachment", attachment, attachment.name);
+
       const response = await fetch(QUOTE_ENDPOINT, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({
-          ...payload,
-          _subject: "New Window Quote Request — Leading UPVC",
-          _captcha: "true",
-        }),
+        headers: { Accept: "application/json" },
+        body: formData,
       });
 
       const responseBody = await response.json().catch(() => ({}));
@@ -1722,6 +1748,54 @@ export default function Quote() {
                       <ChevronDown size={16} aria-hidden="true" />
                     </div>
                   </FormField>
+
+                  <div className="qc-upload-field">
+                    <label htmlFor="qc-attachment">Attach a photo or PDF (optional)</label>
+                    <p className="qc-upload-help">
+                      Upload a photo of your opening, drawing, or PDF plan. JPG, PNG, WEBP or PDF, up to 8 MB.
+                    </p>
+                    <input
+                      id="qc-attachment"
+                      className="qc-upload-input"
+                      type="file"
+                      accept=".pdf,.jpg,.jpeg,.png,.webp,application/pdf,image/jpeg,image/png,image/webp"
+                      onChange={(e) => {
+                        const file = e.target.files?.[0] || null;
+                        setAttachment(file);
+                        setAttachmentError("");
+                        if (file && file.size > 8 * 1024 * 1024) {
+                          setAttachmentError("File is too large. Maximum size is 8 MB.");
+                        }
+                      }}
+                      aria-describedby="qc-attachment-help qc-attachment-error"
+                    />
+                    {attachment && (
+                      <div className="qc-upload-selected">
+                        <Paperclip size={15} aria-hidden="true" />
+                        <span title={attachment.name}>{attachment.name}</span>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setAttachment(null);
+                            setAttachmentError("");
+                            const input = document.getElementById("qc-attachment");
+                            if (input) input.value = "";
+                          }}
+                          aria-label="Remove attachment"
+                        >
+                          <X size={15} />
+                        </button>
+                      </div>
+                    )}
+                    <span id="qc-attachment-help" className="qc-upload-help-small">
+                      Your attachment will be sent with the quote request.
+                    </span>
+                    {attachmentError && (
+                      <span id="qc-attachment-error" className="qc-field-error" role="alert">
+                        {attachmentError}
+                      </span>
+                    )}
+                  </div>
 
                   {status === "error" && (
                     <p className="qc-error-banner" role="alert">
