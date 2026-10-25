@@ -1722,7 +1722,7 @@ export default function Quote() {
                     name="_subject"
                     value="New Window Quote Request — Leading UPVC"
                   />
-                  <input type="hidden" name="_captcha" value="true" />
+                  <input type="hidden" name="_captcha" value="false" />
                   <input
                     type="hidden"
                     name="from_name"
