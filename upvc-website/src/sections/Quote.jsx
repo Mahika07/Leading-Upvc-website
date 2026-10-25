@@ -868,7 +868,7 @@ export default function Quote() {
   const nameRef = useRef(null);
   const requestRef = useRef(null);
   const customRef = useRef(null);
-
+  const submissionStartedRef = useRef(false);
   /* ---------- the configuration ---------- */
   const [systemId, setSystemId] = useState(DEFAULTS.system);
   const [configIndex, setConfigIndex] = useState(DEFAULTS.configIndex);
@@ -1130,10 +1130,10 @@ export default function Quote() {
       }
     }
 
+    submissionStartedRef.current = true;
     setStatus("sending");
 
-    // Submit the actual HTML form as multipart/form-data.
-    // This includes the selected file and all named form fields.
+    // Submit to the hidden iframe instead of navigating away.
     event.currentTarget.submit();
   };
 
@@ -1660,7 +1660,17 @@ export default function Quote() {
               </button>
             </div>
           </div>
-
+          <iframe
+            name="quote-submit-frame"
+            title="Quote submission"
+            hidden
+            onLoad={() => {
+              if (submissionStartedRef.current) {
+                submissionStartedRef.current = false;
+                setStatus("sent");
+              }
+            }}
+          />
           {/* ---------------- request ---------------- */}
           <div className="qc-request" ref={requestRef}>
             <AnimatePresence mode="wait" initial={false}>
@@ -1693,6 +1703,7 @@ export default function Quote() {
                   action="https://formsubmit.co/leadinggears@gmail.com"
                   method="POST"
                   encType="multipart/form-data"
+                  target="quote-submit-frame"
                   onSubmit={submit}
                   noValidate
                   initial={{ opacity: 0, y: 12 }}
