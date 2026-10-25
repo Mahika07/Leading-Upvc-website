@@ -33,7 +33,7 @@ import "./Quote.css";
 /* =========================================================
    SETTINGS — FormSubmit AJAX
 ========================================================= */
-const QUOTE_ENDPOINT = "https://formsubmit.co/ajax/leadinggears@gmail.com";
+const QUOTE_ENDPOINT = "https://formsubmit.co/leadinggears@gmail.com";
 
 const SIZE_LIMITS = {
   width: { min: 500, max: 4000 },
@@ -1104,10 +1104,10 @@ export default function Quote() {
     return Object.keys(next).length === 0;
   };
 
-  const submit = async (event) => {
+  const submit = (event) => {
     event.preventDefault();
 
-    if (values.company) return; // honeypot: real people leave this empty
+    if (values.company) return;
     if (!validate()) return;
 
     if (attachment) {
@@ -1117,7 +1117,9 @@ export default function Quote() {
         "image/png",
         "image/webp",
       ];
-      const allowedExtensions = /\\.(pdf|jpe?g|png|webp)$/i;
+
+      const allowedExtensions = /\.(pdf|jpe?g|png|webp)$/i;
+
       if (
         (!allowedTypes.includes(attachment.type) &&
           !allowedExtensions.test(attachment.name)) ||
@@ -1130,59 +1132,9 @@ export default function Quote() {
 
     setStatus("sending");
 
-    const payload = {
-      subject: "New Window Quote Request — Leading UPVC",
-      from_name: "Leading UPVC Website",
-      name: values.name.trim(),
-      phone: values.phone.trim(),
-      email: values.email.trim(),
-      city: values.city.trim(),
-      project_type: values.type,
-      window_system: system.label,
-      window_colour:
-        colour.id === "custom" ? `Custom (${customHex})` : colour.name,
-      window_configuration: config.label,
-      width_mm: width,
-      height_mm: height,
-      quantity: qty,
-      submitted_at: new Date().toISOString(),
-      _subject: "New Window Quote Request — Leading UPVC",
-      _captcha: "true",
-    };
-
-    try {
-      // FormData is required to send the actual file bytes.
-      // Do not set Content-Type manually; the browser adds the multipart boundary.
-      const formData = new FormData();
-      Object.entries(payload).forEach(([key, value]) => {
-        formData.append(key, String(value));
-      });
-      if (attachment)
-        formData.append("attachment", attachment, attachment.name);
-
-      const response = await fetch(QUOTE_ENDPOINT, {
-        method: "POST",
-        headers: { Accept: "application/json" },
-        body: formData,
-      });
-
-      const responseBody = await response.json().catch(() => ({}));
-      const succeeded =
-        response.ok &&
-        (responseBody.success === "true" || responseBody.success === true);
-
-      if (!succeeded) {
-        throw new Error(
-          responseBody.message ||
-            `FormSubmit request failed (HTTP ${response.status}).`,
-        );
-      }
-
-      setStatus("sent");
-    } catch (error) {
-      console.error("[Quote] FormSubmit send failed:", error);
-      setStatus("error");
-    }
+    // Submit the actual HTML form as multipart/form-data.
+    // This includes the selected file and all named form fields.
+    event.currentTarget.submit();
   };
 
   /* ---------- radio key helpers ---------- */
@@ -1640,11 +1592,14 @@ export default function Quote() {
                 id="qc-attachment"
                 className="qc-upload-input"
                 type="file"
+                name="attachment"
+                form="quote-form"
                 accept=".pdf,.jpg,.jpeg,.png,.webp,application/pdf,image/jpeg,image/png,image/webp"
                 onChange={(e) => {
                   const file = e.target.files?.[0] || null;
                   setAttachment(file);
                   setAttachmentError("");
+
                   if (file && file.size > 8 * 1024 * 1024) {
                     setAttachmentError(
                       "File is too large. Maximum size is 8 MB.",
@@ -1733,7 +1688,11 @@ export default function Quote() {
               {formOpen && status !== "sent" && (
                 <motion.form
                   key="form"
+                  id="quote-form"
                   className="qc-form"
+                  action="https://formsubmit.co/leadinggears@gmail.com"
+                  method="POST"
+                  encType="multipart/form-data"
                   onSubmit={submit}
                   noValidate
                   initial={{ opacity: 0, y: 12 }}
@@ -1758,11 +1717,49 @@ export default function Quote() {
                     value={values.company}
                     onChange={(e) => setField("company", e.target.value)}
                   />
-
+                  <input
+                    type="hidden"
+                    name="_subject"
+                    value="New Window Quote Request — Leading UPVC"
+                  />
+                  <input type="hidden" name="_captcha" value="true" />
+                  <input
+                    type="hidden"
+                    name="from_name"
+                    value="Leading UPVC Website"
+                  />
+                  <input
+                    type="hidden"
+                    name="window_system"
+                    value={system.label}
+                  />
+                  <input
+                    type="hidden"
+                    name="window_colour"
+                    value={
+                      colour.id === "custom"
+                        ? `Custom (${customHex})`
+                        : colour.name
+                    }
+                  />
+                  <input
+                    type="hidden"
+                    name="window_configuration"
+                    value={config.label}
+                  />
+                  <input type="hidden" name="width_mm" value={width} />
+                  <input type="hidden" name="height_mm" value={height} />
+                  <input type="hidden" name="quantity" value={qty} />
+                  <input
+                    type="hidden"
+                    name="submitted_at"
+                    value={new Date().toISOString()}
+                  />
                   <FormField label="Full Name" error={errors.name} id="qc-name">
                     <input
                       ref={nameRef}
                       id="qc-name"
+                      name="name"
                       type="text"
                       autoComplete="name"
                       placeholder="Enter your name"
@@ -1780,6 +1777,7 @@ export default function Quote() {
                     >
                       <input
                         id="qc-phone"
+                        name="phone"
                         type="tel"
                         autoComplete="tel"
                         inputMode="tel"
@@ -1797,6 +1795,7 @@ export default function Quote() {
                     >
                       <input
                         id="qc-email"
+                        name="email"
                         type="email"
                         autoComplete="email"
                         placeholder="Your email"
@@ -1814,6 +1813,7 @@ export default function Quote() {
                   >
                     <input
                       id="qc-city"
+                      name="city"
                       type="text"
                       autoComplete="address-level2"
                       placeholder="Enter your city"
@@ -1827,6 +1827,7 @@ export default function Quote() {
                     <div className="qc-select">
                       <select
                         id="qc-type"
+                        name="project_type"
                         value={values.type}
                         onChange={(e) => setField("type", e.target.value)}
                       >
